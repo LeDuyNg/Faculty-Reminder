@@ -11,10 +11,7 @@ public class CSVHandler {
     protected static boolean verifyYear(String year) {
         try{
             int yearInt = Integer.parseInt(year);
-            if (yearInt > 9999 || yearInt < 1000) {
-                return false;
-            }
-            return true;
+            return yearInt <= 9999 && yearInt >= 1000;
         }
         catch (NumberFormatException e) {
             return false;
