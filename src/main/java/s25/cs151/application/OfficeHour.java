@@ -2,6 +2,8 @@ package s25.cs151.application;
 
 import java.util.ArrayList;
 import java.util.Objects;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
 public class OfficeHour implements Comparable<OfficeHour>{
     private final String semester;
@@ -22,6 +24,21 @@ public class OfficeHour implements Comparable<OfficeHour>{
         System.arraycopy(days, 0, this.days, 0, days.length);
     }
 
+
+    public boolean[] getDays()
+    {
+        return days;
+    }
+
+    public String getSemester()
+    {
+        return semester;
+    }
+
+    public int getYear()
+    {
+        return year;
+    }
 
     protected ArrayList<String> export() {
         ArrayList<String> value = new ArrayList<>();
@@ -48,13 +65,14 @@ public class OfficeHour implements Comparable<OfficeHour>{
     }
 
     @Override
-    public int compareTo(OfficeHour officeHour) {
-        int result = this.semester.compareTo(officeHour.semester);
+    public int compareTo(OfficeHour o) {
+        int result = Integer.compare(o.getYear(), this.getYear());
         if (result == 0) {
-            result = Integer.compare(this.year, officeHour.year);
+            return this.getSemester().compareTo(o.getSemester());
         }
         return result;
     }
+
 
     @Override
     public int hashCode() {

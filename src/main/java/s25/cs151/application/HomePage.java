@@ -35,6 +35,8 @@ class HomePage extends BorderPane {
         CustomizeButton searchButton = new CustomizeButton(200, 30,
                 "Search Schedule", "#CAA8F5");
 
+        CustomizeButton viewButton = new CustomizeButton(200, 30, "View Office Hours", "#CAA8F5");
+
         CustomizeButton exitButton = new CustomizeButton(200, 30, "Exit", "#CAA8F5");
 
         // Creating the banner for the application
@@ -52,7 +54,7 @@ class HomePage extends BorderPane {
         banner.getChildren().addAll(appBannerBox, appName);
 
         // Creating a container for the buttons
-        VBox centerButtons = new VBox(10, createButton, editButton, searchButton, exitButton);
+        VBox centerButtons = new VBox(10, createButton, editButton, searchButton, viewButton, exitButton);
         centerButtons.setAlignment(Pos.CENTER);
 
         // Adding the banner and the buttons to a center layout
@@ -138,6 +140,7 @@ class HomePage extends BorderPane {
 
         // Button actions for switching pages
         createButton.setOnAction(e -> Controller.createOfficeHour(primaryStage));
+        viewButton.setOnAction(e -> Controller.viewOfficeHours(primaryStage));
 
     }
 

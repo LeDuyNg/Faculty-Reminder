@@ -31,6 +31,20 @@ public class Controller extends ActionEvent {
         currentStage.show();
     }
 
+
+    protected static void viewOfficeHours(Stage currentStage)
+    {
+        currentStage.close();
+        Scene scene = new Scene(new ViewOfficeHoursPage(currentStage), 800, 500);
+        currentStage.setTitle("View Office Hours");
+        currentStage.setScene(scene);
+
+        // Set the window at a fixed size and don't allow the user to resize the window
+        currentStage.setResizable(false);
+        currentStage.show();
+
+    }
+
     /**
      * This method returns the user to the Home Page of the application
      * @param currentStage - the current stage (window) that needs to be closed and replaced
