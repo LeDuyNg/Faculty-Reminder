@@ -2,8 +2,6 @@ package s25.cs151.application;
 
 import java.util.ArrayList;
 import java.util.Objects;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 public class OfficeHour implements Comparable<OfficeHour>{
     private final String semester;

@@ -105,7 +105,58 @@ public class CSVHandler {
         return officeHours;
     }
 
-    protected static void displayNotification(String message) {
+    /**
+     * Converts boolean representing weekdays into readable string
+     * Each element in the array corresponds to a weekday (Monday to Friday)
+     * where 'true' means that day is selected
+     *
+     * @param days a boolean array of size 5 representing Monday through Friday
+     * @return a comma-separated string of the selected day names, or "None" if none are selected
+     */
+    private static String formatDays(boolean[] days) {
+        String[] dayNames = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < days.length; i++) {
+            if (days[i]) {
+                if (sb.length() > 0) sb.append(", ");
+                sb.append(dayNames[i]);
+            }
+        }
+        return sb.toString().isEmpty() ? "None" : sb.toString();
+    }
+
+    /**
+     * Loads OfficeHour objects from CSV file
+     * File is expected to be located at "src/data/office_hour.csv" and
+     * each line must be formatted as: Semester, Year, Weekdays]
+     *
+     * @return a list of OfficeHour objects parsed from CSV file
+     */
+    public static List<OfficeHour> loadOfficeHourObjects()
+    {
+        List<OfficeHour> list = new ArrayList<>();
+        File file = new File("src/data/office_hour.csv");
+
+        try (Scanner scanner = new Scanner(file))
+        {
+            while (scanner.hasNextLine()) {
+                String[] values = scanner.nextLine().split(",");
+                String semester = values[0].trim();
+                int year = Integer.parseInt(values[1].trim());
+                boolean[] days = new boolean[5];
+                for (int i = 0; i < 5; i++) {
+                    days[i] = Boolean.parseBoolean(values[i + 2].trim());
+                }
+                list.add(new OfficeHour(semester, year, days));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("CSV file not found");
+        }
+        return list;
+    }
+
+    protected static void displayNotification(String message)
+    {
         Stage newStage = new Stage();
         Scene newScene = new Scene(new Notifier(message, newStage));
         newStage.setScene(newScene);

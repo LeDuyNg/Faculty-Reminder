@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
 import java.time.LocalDate;
 import java.time.YearMonth;
 
