@@ -183,8 +183,6 @@ public class CSVHandler {
         return list;
     }
 
-    protected static void displayNotification(String message)
-    {
     /**
      * Displays a notification with the given message in a new pop-up window.
      * @param message The message to be displayed.
