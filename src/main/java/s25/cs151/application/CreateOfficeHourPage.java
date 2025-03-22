@@ -176,34 +176,43 @@ public class CreateOfficeHourPage extends BorderPane {
 
         // Setting the action for the Cancel button
         cancelButton.setOnAction(e-> Controller.returnHomePage(currentStage));
+
+        // Save button action - Validate and save office hour details
         saveButton.setOnAction(e-> {
             try {
                 boolean[] daysChosen = new boolean[5];
                 for (int i = 0; i < daysChosen.length; i++) {
+                    // Get the user's choice for days
                     daysChosen[i] = days[i].isSelected();
                 }
-                if (!CSVHandler.verifyYear(yearTextField.getText())) {
-                    CSVHandler.displayNotification("Invalid Year");
-
+                // Validate input fields before saving
+                if (!CSVHandler.verifyYear(yearTextField.getText())) {// Check if valid year, 4-digit integer
+                    CSVHandler.displayNotification("Invalid Year");// Display warning
                 }
-                else if (!CSVHandler.verifyChoseDay(daysChosen)) {
-                    CSVHandler.displayNotification("Must Choose At Least 1 Day");
+                else if (!CSVHandler.verifyChoseDay(daysChosen)) {// Check if day option left unchecked
+                    CSVHandler.displayNotification("Must Choose At Least 1 Day");// Display warning
                 }
-                else if (CSVHandler.checkForDuplicate(semesterComboBox.getValue(), Integer.parseInt(yearTextField.getText()))) {
-                    CSVHandler.displayNotification("Duplicate Office Hour Found");
+                else if (CSVHandler.checkForDuplicate(semesterComboBox.getValue(), // Check for duplicate value of
+                        Integer.parseInt(yearTextField.getText()))) {// combo semester, year
+                    CSVHandler.displayNotification("Duplicate Office Hour Found");// Display warning
                 }
                 else {
+                    // Save office hour if all checks pass
                     OfficeHour newOfficeHour = new OfficeHour(semesterComboBox.getValue(),
                             Integer.parseInt(yearTextField.getText()), daysChosen);
+
+                    // Save new office hour to .\office_hour.csv file
                     Controller.saveOfficeHour(newOfficeHour);
+
+                    // Return to home page
                     Controller.returnHomePage(currentStage);
+
+                    // Display a notification indicating office hour saved successfully
                     CSVHandler.displayNotification("Save Successfully");
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-
         });
-
     }
 }

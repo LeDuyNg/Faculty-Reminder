@@ -16,7 +16,6 @@ public class Controller extends ActionEvent {
      * This method moves the user to the Create Office Hour page
      * @param currentStage - the current stage (window) that needs to be closed and replaced
      */
-
     protected static void createOfficeHour(Stage currentStage) {
         // Close the current stage
         currentStage.close();
@@ -63,18 +62,31 @@ public class Controller extends ActionEvent {
         currentStage.show();
     }
 
+    /**
+     * Saves an OfficeHour object to a CSV file.
+     *
+     * @param newOfficeHour The OfficeHour object to be saved.
+     * @throws IOException If an error occurs while writing to the file.
+     */
     protected static void saveOfficeHour(OfficeHour newOfficeHour) throws IOException {
         try{
             FileWriter out = new FileWriter("src/data/office_hour.csv", true);
+            // Append the OfficeHour data to the file
             out.append(newOfficeHour.toString());
             out.append("\n");
             out.close();
         }
         catch (IOException e) {
+            // Print an error message if the file cannot be accessed
             System.out.println("File not found");
         }
     }
 
+    /**
+     * Closes a notification popup.
+     *
+     * @param notificationStage The stage (window) of the notification to be closed.
+     */
     protected static void closeNotification(Stage notificationStage) {
         notificationStage.close();
     }
