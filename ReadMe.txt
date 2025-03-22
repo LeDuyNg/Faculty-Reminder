@@ -1,14 +1,14 @@
 # Name of application: Faculty Reminder
-# Version: 0.2
+# Version: 0.4
 
 # who did what:
-1. Le Duy Nguyen - Buttons and Functionality
-2. Lima Ibrahimkhail - Home Page
-3. Billy Porras-Molina - Create Office Hours screen
+1. Le Duy Nguyen - Buttons and program unctionality
+2. Lima Ibrahimkhail - Home Page and Functionality
+3. Billy Porras-Molina - View Office Hour Page
 
 
 # Any other instruction that users need to know:
-The cancel button on the Create Office Hours screen will return user to home screen, and Exit button on home screen will quit the application.
+
 
 
 

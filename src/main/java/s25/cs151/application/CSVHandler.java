@@ -77,6 +77,12 @@ public class CSVHandler {
         }
     }
 
+    /**
+     * Formats OfficeHour object into string including semester, year, and selected days
+     *
+     * @param officeHour OfficeHour object containing semester, year, and day selections
+     * @return formatted string
+     */
     private static String formatOfficeHour(OfficeHour officeHour)
     {
         String[] daysOfWeek = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"};
@@ -92,9 +98,16 @@ public class CSVHandler {
             }
         }
 
+        // Return formatted string with semester, year, and days
         return officeHour.getSemester() + " " + officeHour.getYear() + " - Days: " + formattedDays.toString();
     }
 
+    /**
+     * Loads office hour data from CSV file and returns it as formatted strings
+     * Data is sorted in descending order by year and semester
+     *
+     * @return ObservableList of formatted office hour strings to be displayed
+     */
     protected static ObservableList<String> loadOfficeHoursFromCSV()
     {
         ObservableList<String> officeHours = FXCollections.observableArrayList();
@@ -124,6 +137,7 @@ public class CSVHandler {
             System.out.println("CSV file not found!");
         }
 
+        // Sort list of office hours by descending year then semester
         Collections.sort(officeHourList);
 
         for (OfficeHour officeHour : officeHourList) {
