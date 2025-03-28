@@ -10,12 +10,13 @@ public class OfficeHour implements Comparable<OfficeHour>{
     private final String semester;
     private final int year;
     private final boolean[] days = new boolean[5];
+    private final int semesterValue;
 
     /**
      * Default constructor
      */
     public OfficeHour() {
-        this("None", 0, new boolean[5]);
+        this("Spring", 0, new boolean[5]);
     }
 
     /**
@@ -37,6 +38,18 @@ public class OfficeHour implements Comparable<OfficeHour>{
         this.semester = semester;
         this.year = year;
         System.arraycopy(days, 0, this.days, 0, days.length);
+        if (semester.equals("Spring")) {
+            semesterValue = 0;
+        }
+        else if (semester.equals("Summer")) {
+            semesterValue = 1;
+        }
+        else if (semester.equals("Fall")) {
+            semesterValue = 2;
+        }
+        else {
+            semesterValue = 3;
+        }
     }
 
     /**
@@ -95,12 +108,12 @@ public class OfficeHour implements Comparable<OfficeHour>{
         }
         else {
             OfficeHour officeHour = (OfficeHour) obj;
-            return this.semester.equals(officeHour.semester) && this.year == officeHour.year;
+            return this.semesterValue == officeHour.semesterValue && this.year == officeHour.year;
         }
     }
 
     /**
-     * Compares OfficeHour objects first by year (descending), then by semester (lexicographically).
+     * Compares OfficeHour objects first by year (descending), then by semester (order of the season).
      * @param o The OfficeHour object to compare with.
      * @return A negative, zero, or positive value based on the comparison.
      */
@@ -108,7 +121,7 @@ public class OfficeHour implements Comparable<OfficeHour>{
     public int compareTo(OfficeHour o) {
         int result = Integer.compare(o.getYear(), this.getYear());
         if (result == 0) {
-            return this.getSemester().compareTo(o.getSemester());
+            return Integer.compare(o.semesterValue, this.semesterValue);
         }
         return result;
     }

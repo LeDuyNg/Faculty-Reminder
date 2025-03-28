@@ -8,3 +8,6 @@ Spring, 2055, false, true, false, false, true
 Spring, 2025, false, true, false, false, false
 Spring, 2123, false, false, false, false, true
 Spring, 1235, false, false, false, true, false
+Fall, 2025, false, true, false, false, true
+Winter, 2025, true, false, false, false, false
+Spring, 3142, false, false, false, false, true

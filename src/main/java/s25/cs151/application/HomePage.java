@@ -20,7 +20,7 @@ class HomePage extends BorderPane {
     /**
      * Constructor to initialize the Home Page.
      *
-     * @param currentStage The current stage (window) that needs to be replaced with the "Home" page.
+     * @param primaryStage The current stage (window) that needs to be replaced with the "Home" page.
      */
     HomePage(Stage primaryStage) {
         super();
@@ -34,9 +34,20 @@ class HomePage extends BorderPane {
         CustomizeButton searchButton = new CustomizeButton(200, 30,
                 "Search Schedule", "#CAA8F5");
 
-        CustomizeButton viewButton = new CustomizeButton(200, 30, "View Office Hours", "#CAA8F5");
+        CustomizeButton viewOfficeHours = new CustomizeButton(200, 30,
+                "View Office Hours", "#CAA8F5");
 
-        CustomizeButton exitButton = new CustomizeButton(200, 30, "Exit", "#CAA8F5");
+        CustomizeButton viewTimeSlots = new CustomizeButton(200, 30,
+                "View Time Slots", "#CAA8F5");
+
+        CustomizeButton timeSlotButton = new CustomizeButton(200, 30,
+                "Select Time Slot", "#CAA8F5");
+
+        CustomizeButton courseButton = new CustomizeButton(200, 30,
+                "Select Course", "#CAA8F5");
+
+        CustomizeButton exitButton = new CustomizeButton(200, 30,
+                "Exit", "#CAA8F5");
 
         // Creating the banner for the application
         Rectangle appBannerBox = new Rectangle();
@@ -53,7 +64,8 @@ class HomePage extends BorderPane {
         banner.getChildren().addAll(appBannerBox, appName);
 
         // Creating a container for the buttons
-        VBox centerButtons = new VBox(10, createButton, editButton, searchButton, viewButton, exitButton);
+        VBox centerButtons = new VBox(10, createButton, editButton, viewOfficeHours, searchButton,
+                timeSlotButton, viewTimeSlots, courseButton, exitButton);
         centerButtons.setAlignment(Pos.CENTER);
 
         // Adding the banner and the buttons to a center layout
@@ -139,7 +151,12 @@ class HomePage extends BorderPane {
 
         // Button actions for switching pages
         createButton.setOnAction(e -> Controller.createOfficeHour(primaryStage));
-        viewButton.setOnAction(e -> Controller.viewOfficeHours(primaryStage));
+        viewOfficeHours.setOnAction(e -> Controller.viewOfficeHours(primaryStage));
+
+        //Button action for timeslot
+        timeSlotButton.setOnAction(e -> Controller.openTimeSlotPage(primaryStage));
+
+        viewTimeSlots.setOnAction(e->Controller.viewTimeSlots(primaryStage));
 
     }
 

@@ -17,14 +17,14 @@ import java.util.List;
 /**
  * This class creates the "View Office Hour" page
  */
-public class ViewTimeSlotPage extends BorderPane
+public class ViewTimeSlotsPage extends BorderPane
 {
     /**
      * Constructs View Office Hours page with a monitor layout containing list of saved office hours
      *
      * @param currentStage current window to update when navigating between pages
      */
-    public ViewTimeSlotPage(Stage currentStage)
+    public ViewTimeSlotsPage(Stage currentStage)
     {
         super();
         this.setStyle("-fx-background-color: #8A2BE2;");
@@ -43,38 +43,29 @@ public class ViewTimeSlotPage extends BorderPane
         StackPane monitorScreen = new StackPane(bezel, screen);
         monitorScreen.setAlignment(Pos.CENTER);
 
-        // Office Hours title
+        // Time Slots title
         Label listTitle = new Label("View Time Slots");
         listTitle.setStyle("-fx-font-size: 24px; -fx-font-weight: bold;");
 
-        // Office Hour table
-        TableView<OfficeHour> table = new TableView<>();
+        // Time Slots table
+        TableView<TimeSlot> table = new TableView<>();
         table.setPrefSize(560, 240);
 
-        TableColumn<OfficeHour, String> semesterCol = new TableColumn<>("Semester");
-        semesterCol.setCellValueFactory(new PropertyValueFactory<>("semester"));
-        semesterCol.setStyle("-fx-alignment: CENTER;");
-
-        TableColumn<OfficeHour, Integer> yearCol = new TableColumn<>("Year");
-        yearCol.setCellValueFactory(new PropertyValueFactory<>("year"));
-        yearCol.setStyle("-fx-alignment: CENTER;");
-
-        TableColumn<OfficeHour, String> daysCol = new TableColumn<>("Days");
-        daysCol.setCellValueFactory(cellData -> javafx.beans.binding.Bindings.createStringBinding(() -> {
-            boolean[] days = cellData.getValue().getDays();
-            String[] names = {"Mon", "Tue", "Wed", "Thu", "Fri"};
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < days.length; i++) {
-                if (days[i]) {
-                    if (sb.length() > 0) sb.append(", ");
-                    sb.append(names[i]);
-                }
-            }
-            return sb.toString();
+        TableColumn<TimeSlot, String> startTimeCol = new TableColumn<>("From Hour");
+        startTimeCol.setCellValueFactory(cellData -> javafx.beans.binding.Bindings.createStringBinding(() -> {
+            int startTimeInMinutes = cellData.getValue().getStartTimeInMinutes();
+            return cellData.getValue().formatTimetoString(startTimeInMinutes);
         }));
-        daysCol.setStyle("-fx-alignment: CENTER;");
+        startTimeCol.setStyle("-fx-alignment: CENTER;");
 
-        table.getColumns().addAll(semesterCol, yearCol, daysCol);
+        TableColumn<TimeSlot, String> endTimeCol = new TableColumn<>("To Hour");
+        endTimeCol.setCellValueFactory(cellData -> javafx.beans.binding.Bindings.createStringBinding(() -> {
+            int endTimeInMinutes = cellData.getValue().getEndTimeInMinutes();
+            return cellData.getValue().formatTimetoString(endTimeInMinutes);
+        }));
+        endTimeCol.setStyle("-fx-alignment: CENTER;");
+
+        table.getColumns().addAll(startTimeCol, endTimeCol);
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         table.setStyle(
@@ -86,7 +77,7 @@ public class ViewTimeSlotPage extends BorderPane
 
         table.setRowFactory(tv -> new TableRow<>()
         {
-            protected void updateItem(OfficeHour item, boolean empty)
+            protected void updateItem(TimeSlot item, boolean empty)
             {
                 super.updateItem(item, empty);
                 if (item == null || empty) {
@@ -99,9 +90,9 @@ public class ViewTimeSlotPage extends BorderPane
             }
         });
 
-        List<OfficeHour> formattedOfficeHours = CSVHandler.loadOfficeHourObjects();
-        Collections.sort(formattedOfficeHours);
-        table.getItems().addAll(formattedOfficeHours);
+        List<TimeSlot> formattedTimeSlots = CSVHandler.loadTimeSlotObjects();
+        Collections.sort(formattedTimeSlots);
+        table.getItems().addAll(formattedTimeSlots);
 
         // Back button
         Button backButton = new CustomizeButton(200, 30, "Back", "#CAA8F5");

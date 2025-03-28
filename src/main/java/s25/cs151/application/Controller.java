@@ -44,6 +44,19 @@ public class Controller extends ActionEvent {
 
     }
 
+    protected static void viewTimeSlots(Stage currentStage)
+    {
+        currentStage.close();
+        Scene scene = new Scene(new ViewTimeSlotsPage(currentStage), 800, 500);
+        currentStage.setTitle("View Time Slots");
+        currentStage.setScene(scene);
+
+        // Set the window at a fixed size and don't allow the user to resize the window
+        currentStage.setResizable(false);
+        currentStage.show();
+
+    }
+
     /**
      * This method returns the user to the Home Page of the application
      * @param currentStage - the current stage (window) that needs to be closed and replaced
@@ -89,5 +102,28 @@ public class Controller extends ActionEvent {
      */
     protected static void closeNotification(Stage notificationStage) {
         notificationStage.close();
+    }
+
+    protected static void openTimeSlotPage(Stage currentStage) {
+        currentStage.close();
+        Scene scene = new Scene(new TimeSlotWindow(currentStage), 800, 500);
+        currentStage.setTitle("Select Time Slot");
+        currentStage.setScene(scene);
+        currentStage.setResizable(false);
+        currentStage.show();
+    }
+
+    protected static void saveTimeSlot(TimeSlot newTimeSlot) throws IOException {
+        try{
+            FileWriter out = new FileWriter("src/data/time_slot.csv", true);
+            // Append the OfficeHour data to the file
+            out.append(newTimeSlot.toString());
+            out.append("\n");
+            out.close();
+        }
+        catch (IOException e) {
+            // Print an error message if the file cannot be accessed
+            System.out.println("File not found");
+        }
     }
 }

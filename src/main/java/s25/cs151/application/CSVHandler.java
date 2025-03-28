@@ -197,6 +197,27 @@ public class CSVHandler {
         return list;
     }
 
+    public static List<TimeSlot> loadTimeSlotObjects()
+    {
+        List<TimeSlot> list = new ArrayList<>();
+        File file = new File("src/data/time_slot.csv");
+
+        try (Scanner scanner = new Scanner(file))
+        {
+            while (scanner.hasNextLine()) {
+                String[] values = scanner.nextLine().split(",");
+                int startTimeInMinute = Integer.parseInt(values[0].trim());
+                int endTimeInMinute = Integer.parseInt(values[1].trim());
+                list.add(new TimeSlot(startTimeInMinute, endTimeInMinute));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("CSV file not found");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return list;
+    }
+
     /**
      * Displays a notification with the given message in a new pop-up window.
      * @param message The message to be displayed.
