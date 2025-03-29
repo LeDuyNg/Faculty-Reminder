@@ -31,18 +31,60 @@ public class Controller extends ActionEvent {
     }
 
 
+    /**
+     * Opens the "View Office Hours" page by replacing the current scene with a new one.
+     * The window is set to a fixed size and is not resizable.
+     *
+     * @param currentStage The current JavaFX stage to be updated.
+     */
     protected static void viewOfficeHours(Stage currentStage)
     {
+        // Close the current window
         currentStage.close();
+
+        // Create a new scene with the ViewOfficeHoursPage layout
         Scene scene = new Scene(new ViewOfficeHoursPage(currentStage), 800, 500);
+
+        // Set the title of the window
         currentStage.setTitle("View Office Hours");
+
+        // Set the new scene to the stage
         currentStage.setScene(scene);
 
-        // Set the window at a fixed size and don't allow the user to resize the window
+        // Prevent window resizing
         currentStage.setResizable(false);
-        currentStage.show();
 
+        // Show the new window
+        currentStage.show();
     }
+
+    /**
+     * Opens the "View Time Slots" page by replacing the current scene with a new one.
+     * The window is set to a fixed size and is not resizable.
+     *
+     * @param currentStage The current JavaFX stage to be updated.
+     */
+    protected static void viewTimeSlots(Stage currentStage)
+    {
+        // Close the current window
+        currentStage.close();
+
+        // Create a new scene with the ViewTimeSlotsPage layout
+        Scene scene = new Scene(new ViewTimeSlotsPage(currentStage), 800, 500);
+
+        // Set the title of the window
+        currentStage.setTitle("View Time Slots");
+
+        // Set the new scene to the stage
+        currentStage.setScene(scene);
+
+        // Prevent window resizing
+        currentStage.setResizable(false);
+
+        // Show the new window
+        currentStage.show();
+    }
+
 
     /**
      * This method returns the user to the Home Page of the application

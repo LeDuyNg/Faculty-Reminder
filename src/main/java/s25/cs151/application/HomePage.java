@@ -157,7 +157,7 @@ class HomePage extends BorderPane {
 
         //Button action for timeslot
         timeSlotButton.setOnAction(e -> Controller.openTimeSlotPage(primaryStage));
-        viewTimeSlots.setOnAction(e -> Controller.openTimeSlotPage(primaryStage));
+        viewTimeSlots.setOnAction(e -> Controller.viewTimeSlots(primaryStage));
 
         // Button action for course
         courseButton.setOnAction(e -> Controller.openCoursePage(primaryStage));
