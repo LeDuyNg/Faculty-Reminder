@@ -118,7 +118,18 @@ public class Controller extends ActionEvent {
         notificationStage.close();
     }
 
-    public static void saveTimeSlot(String selectedTimeSlot) {
+    protected static void saveTimeSlot(TimeSlot newTimeSlot) throws IOException {
+        try{
+            FileWriter out = new FileWriter("src/data/time_slot.csv", true);
+            // Append the OfficeHour data to the file
+            out.append(newTimeSlot.toString());
+            out.append("\n");
+            out.close();
+        }
+        catch (IOException e) {
+            // Print an error message if the file cannot be accessed
+            System.out.println("File not found");
+        }
     }
 
     public static void saveCourseDetails(String number, String name, String section) {

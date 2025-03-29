@@ -201,24 +201,41 @@ public class CSVHandler {
         return list;
     }
 
-    public static List<TimeSlot> loadTimeSlotObjects()
-    {
+    /**
+     * Loads time slot data from a CSV file and converts each line into a TimeSlot object.
+     *
+     * @return a list of TimeSlot objects loaded from the file.
+     */
+    public static List<TimeSlot> loadTimeSlotObjects() {
+        // Create a list to store TimeSlot objects
         List<TimeSlot> list = new ArrayList<>();
+
+        // Define the path to the CSV file
         File file = new File("src/data/time_slot.csv");
 
-        try (Scanner scanner = new Scanner(file))
-        {
+        // Try-with-resources ensures the Scanner is closed automatically
+        try (Scanner scanner = new Scanner(file)) {
+            // Read each line from the CSV file
             while (scanner.hasNextLine()) {
+                // Split the line into values using comma as the delimiter
                 String[] values = scanner.nextLine().split(",");
+
+                // Parse the start and end time in minutes from the CSV line
                 int startTimeInMinute = Integer.parseInt(values[0].trim());
                 int endTimeInMinute = Integer.parseInt(values[1].trim());
+
+                // Create a TimeSlot object using the parsed values
                 list.add(new TimeSlot(startTimeInMinute, endTimeInMinute));
             }
         } catch (FileNotFoundException e) {
+            // Handle the case where the CSV file is not found
             System.out.println("CSV file not found");
         } catch (Exception e) {
+            // Rethrow any other exceptions as a RuntimeException
             throw new RuntimeException(e);
         }
+
+        // Return the list of loaded time slots
         return list;
     }
 
@@ -228,25 +245,10 @@ public class CSVHandler {
      */
     protected static void displayNotification(String message)
     {
-        Stage popupStage = new Stage();
-        popupStage.setTitle("Notification");
-
-        Label msgLabel = new Label(message);
-        msgLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
-
-        Button okButton = new Button("OK");
-        okButton.setStyle("-fx-background-color: #CAA8F5;");
-        okButton.setOnAction(e -> popupStage.close());
-
-        VBox layout = new VBox(20, msgLabel, okButton);
-        layout.setAlignment(Pos.CENTER);
-        layout.setStyle("-fx-padding: 20px; -fx-background-color: #FFFFFF;");
-
-        // Create scene and show  pop-up
-        Scene scene = new Scene(layout, 300, 150);
-        popupStage.setScene(scene);
-        popupStage.setResizable(false);
-        popupStage.toFront();
-        popupStage.show();
+        Stage newStage = new Stage();
+        Scene newScene = new Scene(new Notifier(message, newStage));
+        newStage.setScene(newScene);
+        newStage.setResizable(false);
+        newStage.show();
     }
 }
