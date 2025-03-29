@@ -1,7 +1,11 @@
 package s25.cs151.application;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import java.io.File;
@@ -219,14 +223,30 @@ public class CSVHandler {
     }
 
     /**
-     * Displays a notification with the given message in a new pop-up window.
-     * @param message The message to be displayed.
+     * Displays notification with given message in new pop-up window
+     * @param message The message to be displayed
      */
-    protected static void displayNotification(String message) {
-        Stage newStage = new Stage();
-        Scene newScene = new Scene(new Notifier(message, newStage));
-        newStage.setScene(newScene);
-        newStage.setResizable(false);
-        newStage.show();
+    protected static void displayNotification(String message)
+    {
+        Stage popupStage = new Stage();
+        popupStage.setTitle("Notification");
+
+        Label msgLabel = new Label(message);
+        msgLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold;");
+
+        Button okButton = new Button("OK");
+        okButton.setStyle("-fx-background-color: #CAA8F5;");
+        okButton.setOnAction(e -> popupStage.close());
+
+        VBox layout = new VBox(20, msgLabel, okButton);
+        layout.setAlignment(Pos.CENTER);
+        layout.setStyle("-fx-padding: 20px; -fx-background-color: #FFFFFF;");
+
+        // Create scene and show  pop-up
+        Scene scene = new Scene(layout, 300, 150);
+        popupStage.setScene(scene);
+        popupStage.setResizable(false);
+        popupStage.toFront();
+        popupStage.show();
     }
 }

@@ -6,8 +6,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import java.sql.Time;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -16,6 +14,7 @@ import java.time.format.DateTimeParseException;
  * This class creates the "Time Slot" page where faculty enter custom start and end times.
  */
 public class TimeSlotWindow extends BorderPane {
+    private static final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("H:mm");
 
     TimeSlotWindow(Stage currentStage) {
         super();
@@ -55,55 +54,27 @@ public class TimeSlotWindow extends BorderPane {
         monitorScreen.setAlignment(Pos.CENTER);
 
         VBox timeSlotContainer = new VBox(20);
-        timeSlotContainer.setMaxWidth(Region.USE_PREF_SIZE);
         timeSlotContainer.setAlignment(Pos.CENTER);
-        
 
-        // Start time
-        // Container for Start time
-        HBox startTimeContainer = new HBox(0);
-        TitleBox startTimeTitle = new TitleBox(100, 50,
-                "Start Time", "#907AD6", "white");
+        TitleBox timeSlotTitleBox = new TitleBox(200, 40, "Enter Time Slot", "#907AD6", "white");
 
-        // ComboBox for Hour and Minute
-        ComboBox<Integer> startHourComboBox = new ComboBox<>();
-        startHourComboBox.getItems().addAll(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-                20, 21, 22, 23);
-        startHourComboBox.setPromptText("Hour");
-        startHourComboBox.setPrefSize(100, 50);
-        startHourComboBox.setStyle("-fx-font-size: 12px; -fx-pref-width: 100px;");
+        // Time input fields
+        TextField fromHourField = new TextField();
+        fromHourField.setPromptText("Start (HH:mm)");
+        fromHourField.setPrefWidth(100); // Set preferred width
+        fromHourField.setMaxWidth(100);  // Set maximum width
 
-        ComboBox<Integer> startMinuteComboBox = new ComboBox<>();
-        startMinuteComboBox.getItems().addAll(0, 15, 30, 45);
-        startMinuteComboBox.setPromptText("Minute");
-        startMinuteComboBox.setPrefSize(100, 50);
-        startMinuteComboBox.setStyle("-fx-font-size: 12px; -fx-pref-width: 100px;");
-        startTimeContainer.getChildren().addAll(startTimeTitle, startHourComboBox, startMinuteComboBox);
+        TextField toHourField = new TextField();
+        toHourField.setPromptText("End (HH:mm)");
+        toHourField.setPrefWidth(100);
+        toHourField.setMaxWidth(100);
 
 
-        // End Time
-        // Container for End time
-        HBox endTimeContainer = new HBox(0);
-        TitleBox endTimeTitle = new TitleBox(100, 50,
-                "End Time", "#907AD6", "white");
+        HBox timeFieldsContainer = new HBox(10, fromHourField, toHourField);
+        timeFieldsContainer.setAlignment(Pos.CENTER);
 
-        // ComboBox for Hour and Minute
-        ComboBox<Integer> endHourComboBox = new ComboBox<>();
-        endHourComboBox.getItems().addAll(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-                20, 21, 22, 23);
-        endHourComboBox.setPromptText("Hour");
-        endHourComboBox.setPrefSize(100, 50);
-        endHourComboBox.setStyle("-fx-font-size: 12px; -fx-pref-width: 100px;");
 
-        ComboBox<Integer> endMinuteComboBox = new ComboBox<>();
-        endMinuteComboBox.getItems().addAll(0, 15, 30, 45);
-        endMinuteComboBox.setPromptText("Minute");
-        endMinuteComboBox.setPrefSize(100, 50);
-        endMinuteComboBox.setStyle("-fx-font-size: 12px; -fx-pref-width: 100px;");
-        endTimeContainer.getChildren().addAll(endTimeTitle, endHourComboBox, endMinuteComboBox);
-
-        timeSlotContainer.getChildren().addAll(startTimeContainer, endTimeContainer);
-
+        timeSlotContainer.getChildren().addAll(timeSlotTitleBox, fromHourField, toHourField);
 
         Button cancelButton = new CustomizeButton(180, 40, "Cancel", "#CAA8F5");
         Button saveButton = new CustomizeButton(200, 40, "Save", "#CAA8F5");
@@ -114,7 +85,7 @@ public class TimeSlotWindow extends BorderPane {
         VBox formContainer = new VBox(30, timeSlotContainer, buttonContainer);
         formContainer.setAlignment(Pos.CENTER);
 
-        monitorScreen.getChildren().addAll(formContainer);
+        monitorScreen.getChildren().add(formContainer);
 
         VBox monitorContainer = new VBox(monitorScreen, monitorStand);
         monitorContainer.setAlignment(Pos.CENTER);
@@ -125,28 +96,35 @@ public class TimeSlotWindow extends BorderPane {
         this.setRight(rightPane);
 
         cancelButton.setOnAction(e -> Controller.returnHomePage(currentStage));
-        saveButton.setOnAction(e->{
-            // Get the value for the start time and end time
-            Integer startHour = startHourComboBox.getValue();
-            Integer startMinute = startMinuteComboBox.getValue();
-            Integer endHour = endHourComboBox.getValue();
-            Integer endMinute = endMinuteComboBox.getValue();
-            if (startHour == null || startMinute == null || endHour == null || endMinute == null) {
-                CSVHandler.displayNotification("Must select Start Time and End Time");
-            }
-            else {
-                try {
-                    TimeSlot newTimeSlot = new TimeSlot(startHour, startMinute, endHour, endMinute);
-                    Controller.saveTimeSlot(newTimeSlot);
+        saveButton.setOnAction(e -> {
+            String startTimeText = fromHourField.getText().trim();
+            String endTimeText = toHourField.getText().trim();
+
+            if (isValidTime(startTimeText) && isValidTime(endTimeText)) {
+                LocalTime startTime = LocalTime.parse(startTimeText, TIME_FORMATTER);
+                LocalTime endTime = LocalTime.parse(endTimeText, TIME_FORMATTER);
+
+                if (startTime.isBefore(endTime)) {
+                    String formattedSlot = startTime.format(TIME_FORMATTER) + " - " + endTime.format(TIME_FORMATTER);
+                    Controller.saveTimeSlot(formattedSlot);
                     Controller.returnHomePage(currentStage);
                     CSVHandler.displayNotification("Time Slot Saved Successfully");
+                } else {
+                    CSVHandler.displayNotification("Error: Start time must be before end time.");
                 }
-                catch (Exception exception) {
-                    CSVHandler.displayNotification(exception.getMessage());
-                }
-
+            } else {
+                CSVHandler.displayNotification("Invalid time format. Use HH:mm (e.g., 3:30).");
             }
         });
+    }
 
+
+    private boolean isValidTime(String time) {
+        try {
+            LocalTime.parse(time, TIME_FORMATTER);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 }

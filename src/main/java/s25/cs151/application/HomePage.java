@@ -34,13 +34,12 @@ class HomePage extends BorderPane {
         CustomizeButton searchButton = new CustomizeButton(200, 30,
                 "Search Schedule", "#CAA8F5");
 
-        CustomizeButton viewOfficeHours = new CustomizeButton(200, 30,
+        CustomizeButton viewButton = new CustomizeButton(200, 30,
                 "View Office Hours", "#CAA8F5");
 
-        CustomizeButton viewTimeSlots = new CustomizeButton(200, 30,
-                "View Time Slots", "#CAA8F5");
+        CustomizeButton viewCoursesButton = new CustomizeButton(200, 30, "View Courses", "#CAA8F5");
 
-        CustomizeButton timeSlotButton = new CustomizeButton(200, 30,
+        CustomizeButton timeButton = new CustomizeButton(200, 30,
                 "Select Time Slot", "#CAA8F5");
 
         CustomizeButton courseButton = new CustomizeButton(200, 30,
@@ -64,8 +63,7 @@ class HomePage extends BorderPane {
         banner.getChildren().addAll(appBannerBox, appName);
 
         // Creating a container for the buttons
-        VBox centerButtons = new VBox(10, createButton, editButton, viewOfficeHours, searchButton,
-                timeSlotButton, viewTimeSlots, courseButton, exitButton);
+        VBox centerButtons = new VBox(10, createButton, editButton, searchButton, viewButton, viewCoursesButton, timeButton, courseButton, exitButton);
         centerButtons.setAlignment(Pos.CENTER);
 
         // Adding the banner and the buttons to a center layout
@@ -151,13 +149,11 @@ class HomePage extends BorderPane {
 
         // Button actions for switching pages
         createButton.setOnAction(e -> Controller.createOfficeHour(primaryStage));
-        viewOfficeHours.setOnAction(e -> Controller.viewOfficeHours(primaryStage));
+        viewButton.setOnAction(e -> Controller.viewOfficeHours(primaryStage));
 
         //Button action for timeslot
-        timeSlotButton.setOnAction(e -> Controller.openTimeSlotPage(primaryStage));
-
-        viewTimeSlots.setOnAction(e->Controller.viewTimeSlots(primaryStage));
-
+        timeButton.setOnAction(e -> Controller.openTimeSlotPage(primaryStage));
+        courseButton.setOnAction(e -> Controller.openCoursePage(primaryStage));
+        viewCoursesButton.setOnAction(e -> Controller.openViewCoursesPage(primaryStage));
     }
-
 }
