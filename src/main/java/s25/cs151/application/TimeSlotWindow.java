@@ -61,7 +61,7 @@ public class TimeSlotWindow extends BorderPane {
         HBox startTimeContainer = new HBox(0);
 
         // Custom title box for start time
-        TitleBox startTimeTitle = new TitleBox(100, 50, "Start Time", "#907AD6", "white");
+        TitleBox startTimeTitle = new TitleBox(100, 50, "From Hour", "#907AD6", "white");
 
         // ComboBoxes for selecting hour and minute
         ComboBox<Integer> startHourComboBox = new ComboBox<>();
@@ -83,7 +83,7 @@ public class TimeSlotWindow extends BorderPane {
         HBox endTimeContainer = new HBox(0);
 
         // Custom title box for end time
-        TitleBox endTimeTitle = new TitleBox(100, 50, "End Time", "#907AD6", "white");
+        TitleBox endTimeTitle = new TitleBox(100, 50, "To Hour", "#907AD6", "white");
 
         // ComboBoxes for selecting hour and minute
         ComboBox<Integer> endHourComboBox = new ComboBox<>();
