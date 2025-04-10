@@ -28,11 +28,11 @@ class HomePage extends BorderPane {
         CustomizeButton createButton = new CustomizeButton(200, 30,
                 "Create Office Hour", "#CAA8F5");
 
-        CustomizeButton editButton = new CustomizeButton(200, 30,
-                "Edit Office Hour", "#CAA8F5");
+        CustomizeButton createScheduleButton = new CustomizeButton(200, 30,
+                "Create Schedule", "#CAA8F5");
 
-        CustomizeButton searchButton = new CustomizeButton(200, 30,
-                "Search Schedule", "#CAA8F5");
+        CustomizeButton viewScheduleButton = new CustomizeButton(200, 30,
+                "View Schedule", "#CAA8F5");
 
         CustomizeButton viewOfficeHours = new CustomizeButton(200, 30,
                 "View Office Hours", "#CAA8F5");
@@ -66,7 +66,7 @@ class HomePage extends BorderPane {
         banner.getChildren().addAll(appBannerBox, appName);
 
         // Creating a container for the buttons
-        VBox centerButtons = new VBox(10, createButton, editButton, searchButton, courseButton, timeSlotButton,
+        VBox centerButtons = new VBox(10, createButton, createScheduleButton, viewScheduleButton, courseButton, timeSlotButton,
                 viewOfficeHours, viewCoursesButton, viewTimeSlots,  exitButton);
         centerButtons.setAlignment(Pos.CENTER);
 
@@ -162,5 +162,9 @@ class HomePage extends BorderPane {
         // Button action for course
         courseButton.setOnAction(e -> Controller.openCoursePage(primaryStage));
         viewCoursesButton.setOnAction(e -> Controller.openViewCoursesPage(primaryStage));
+
+        // Schedule buttons
+        createScheduleButton.setOnAction(e -> Controller.openCreateSchedulePage(primaryStage));
+        viewScheduleButton.setOnAction(e -> Controller.openViewSchedulePage(primaryStage));
     }
 }

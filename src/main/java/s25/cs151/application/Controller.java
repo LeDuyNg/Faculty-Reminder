@@ -121,6 +121,23 @@ public class Controller extends ActionEvent {
         currentStage.show();
     }
 
+    protected static void openCreateSchedulePage(Stage currentStage) {
+        currentStage.close();
+        Scene scene = new Scene(new CreateSchedulePage(currentStage), 800, 500);
+        currentStage.setTitle("Create Schedule");
+        currentStage.setScene(scene);
+        currentStage.setResizable(false);
+        currentStage.show();
+    }
+
+    protected static void openViewSchedulePage(Stage currentStage) {
+        currentStage.close();
+        Scene scene = new Scene(new ViewSchedulePage(currentStage), 800, 500);
+        currentStage.setTitle("View Schedule");
+        currentStage.setScene(scene);
+        currentStage.setResizable(false);
+        currentStage.show();
+    }
 
     /**
      * Saves an OfficeHour object to a CSV file.
