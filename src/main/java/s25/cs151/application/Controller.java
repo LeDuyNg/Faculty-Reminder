@@ -180,7 +180,7 @@ public class Controller extends ActionEvent {
     protected static void saveTimeSlot(TimeSlot newTimeSlot) throws IOException {
         try{
             FileWriter out = new FileWriter("src/data/time_slot.csv", true);
-            // Append the OfficeHour data to the file
+            // Append the TimeSlot data to the file
             out.append(newTimeSlot.toString());
             out.append("\n");
             out.close();
@@ -191,6 +191,24 @@ public class Controller extends ActionEvent {
         }
     }
 
-    public static void saveCourseDetails(String number, String name, String section) {
+    /**
+     * Saves a new OfficeHourSchedule to the CSV file by appending it to the existing data.
+     *
+     * @param newSchedule the OfficeHourSchedule object to be saved
+     * @throws IOException if an I/O error occurs while writing to the file
+     */
+    protected static void saveSchedule(OfficeHourSchedule newSchedule) throws IOException {
+        try {
+            FileWriter out = new FileWriter("src/data/office_hour_schedule.csv", true);
+            out.append(newSchedule.toString());
+            out.append("\n");
+            out.close();
+        } catch (IOException e) {
+            // Print an error message if the file cannot be accessed
+            System.out.println("File not found");
+            // It's better to rethrow the exception if the method declares it
+            throw e;
+        }
     }
+
 }
