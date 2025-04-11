@@ -240,6 +240,58 @@ public class CSVHandler {
     }
 
     /**
+     * Loads office hour schedule records from a CSV file and converts each line into an OfficeHourSchedule object.
+     *
+     * @return a list of OfficeHourSchedule objects parsed from the CSV file
+     */
+    public static List<OfficeHourSchedule> loadOfficeHourScheduleObjects() {
+        List<OfficeHourSchedule> list = new ArrayList<>();
+
+        // Define the path to the CSV file
+        File file = new File("src/data/office_hour_schedule.csv");
+
+        // Try-with-resources ensures the Scanner is closed automatically
+        try (Scanner scanner = new Scanner(file)) {
+            // Read each line from the CSV file
+            while (scanner.hasNextLine()) {
+                // Split the line into values using comma as the delimiter
+                String[] values = scanner.nextLine().split(",");
+
+                // Parse and trim each value from the CSV line
+                String studentName = values[0].trim();
+                String scheduleDate = values[1].trim();
+                int startTimeInMinute = Integer.parseInt(values[2].trim());
+                int endTimeInMinute = Integer.parseInt(values[3].trim());
+                String courseCode = values[4].trim();
+                String courseName = values[5].trim();
+                String sectionNumber = values[6].trim();
+                String reason = values[7].trim();
+                String comment = values[8].trim();
+
+                // Create TimeSlot and Course objects
+                TimeSlot timeSlot = new TimeSlot(startTimeInMinute, endTimeInMinute);
+                Course course = new Course(courseCode, courseName, sectionNumber);
+
+                // Create and add the OfficeHourSchedule to the list
+                OfficeHourSchedule officeHourSchedule = new OfficeHourSchedule(
+                        studentName, scheduleDate, timeSlot, course, reason, comment
+                );
+                list.add(officeHourSchedule);
+            }
+        } catch (FileNotFoundException e) {
+            // Handle the case where the CSV file is not found
+            System.out.println("CSV file not found");
+        } catch (Exception e) {
+            // Rethrow any other unexpected exceptions
+            throw new RuntimeException(e);
+        }
+
+        // Return the list of loaded schedules
+        return list;
+    }
+
+
+    /**
      * Displays notification with given message in new pop-up window
      * @param message The message to be displayed
      */
