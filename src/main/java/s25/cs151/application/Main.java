@@ -20,14 +20,6 @@ public class Main extends Application {
 
     }
 
-    public static void main(String[] args) throws Exception {
-//        launch(args);
-        Course course = new Course("test", "123", "abc");
-        TimeSlot timeSlot = new TimeSlot(12, 0, 14, 34);
-        OfficeHourSchedule officeHourSchedule = new OfficeHourSchedule("Duy", "05/21/2001", timeSlot, course, "blank", "blank");
-        Controller.saveSchedule(officeHourSchedule);
-        System.out.println(CSVHandler.loadOfficeHourScheduleObjects());
-
-    }
+    public static void main(String[] args) {launch(args);}
 }
 

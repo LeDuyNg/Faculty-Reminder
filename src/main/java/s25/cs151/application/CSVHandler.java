@@ -239,6 +239,11 @@ public class CSVHandler {
         return list;
     }
 
+    /**
+     * Loads office hour schedule records from a CSV file and converts each line into an OfficeHourSchedule object.
+     *
+     * @return a list of OfficeHourSchedule objects parsed from the CSV file
+     */
     public static List<OfficeHourSchedule> loadOfficeHourScheduleObjects() {
         List<OfficeHourSchedule> list = new ArrayList<>();
 
@@ -252,45 +257,39 @@ public class CSVHandler {
                 // Split the line into values using comma as the delimiter
                 String[] values = scanner.nextLine().split(",");
 
+                // Parse and trim each value from the CSV line
                 String studentName = values[0].trim();
-
                 String scheduleDate = values[1].trim();
-
-                // Parse the start and end time in minutes from the CSV line
                 int startTimeInMinute = Integer.parseInt(values[2].trim());
                 int endTimeInMinute = Integer.parseInt(values[3].trim());
-
                 String courseCode = values[4].trim();
-
                 String courseName = values[5].trim();
-
                 String sectionNumber = values[6].trim();
-
                 String reason = values[7].trim();
-
                 String comment = values[8].trim();
 
-                // Create a TimeSlot object using the parsed values
+                // Create TimeSlot and Course objects
                 TimeSlot timeSlot = new TimeSlot(startTimeInMinute, endTimeInMinute);
-
                 Course course = new Course(courseCode, courseName, sectionNumber);
 
-                OfficeHourSchedule officeHourSchedule = new OfficeHourSchedule(studentName, scheduleDate,
-                        timeSlot, course, reason, comment);
-
+                // Create and add the OfficeHourSchedule to the list
+                OfficeHourSchedule officeHourSchedule = new OfficeHourSchedule(
+                        studentName, scheduleDate, timeSlot, course, reason, comment
+                );
                 list.add(officeHourSchedule);
             }
         } catch (FileNotFoundException e) {
             // Handle the case where the CSV file is not found
             System.out.println("CSV file not found");
         } catch (Exception e) {
-            // Rethrow any other exceptions as a RuntimeException
+            // Rethrow any other unexpected exceptions
             throw new RuntimeException(e);
         }
 
-        // Return the list of loaded time slots
+        // Return the list of loaded schedules
         return list;
     }
+
 
     /**
      * Displays notification with given message in new pop-up window
