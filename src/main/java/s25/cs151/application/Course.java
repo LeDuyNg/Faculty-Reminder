@@ -89,4 +89,14 @@ public class Course implements Comparable<Course>
     {
         return courseCode + ", " + courseName + ", " + sectionNumber;
     }
+
+    /**
+     * Converts the course ID to a string in the format "course code-section number".
+     *
+     * @return A string representing the course ID, in the format "COURSE_CODE-SECTION_NUMBER".
+     */
+    public String courseIDtoString() {
+        return String.format("%s-%s", this.getCourseCode(), this.getSectionNumber());
+    }
+
 }

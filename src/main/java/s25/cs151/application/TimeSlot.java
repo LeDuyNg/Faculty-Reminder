@@ -50,6 +50,13 @@ public class TimeSlot implements Comparable<TimeSlot> {
         }
     }
 
+    public TimeSlot(String formatedTimeSlot) throws Exception{
+        this(Integer.parseInt(formatedTimeSlot.substring(0, 2)), // startHour
+                Integer.parseInt(formatedTimeSlot.substring(5, 7)), // startMinute
+                Integer.parseInt(formatedTimeSlot.substring(10, 12)), // endHour
+                Integer.parseInt(formatedTimeSlot.substring(15))); // endMinute
+    }
+
     // Getters
     public int getStartTimeInMinutes() { return startTimeInMinutes; }
 
@@ -120,7 +127,14 @@ public class TimeSlot implements Comparable<TimeSlot> {
         return String.format("%02d : %02d", hour, minutes);
     }
 
+    /**
+     * Formats the time slot as a string in the format "start time - end time".
+     *
+     * @return A string representing the time slot in the format "HH:mm - HH:mm", where
+     *         the first time is the start time and the second time is the end time.
+     */
     public String formatTimeSlottoString() {
         return String.format("%s - %s", formatTimetoString(startTimeInMinutes), formatTimetoString(endTimeInMinutes));
     }
+
 }
