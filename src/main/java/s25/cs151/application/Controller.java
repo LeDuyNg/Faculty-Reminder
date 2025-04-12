@@ -132,7 +132,7 @@ public class Controller extends ActionEvent {
 
     protected static void openViewSchedulePage(Stage currentStage) {
         currentStage.close();
-        Scene scene = new Scene(new ViewSchedulePage(currentStage), 800, 500);
+        Scene scene = new Scene(new ViewSchedulePage(currentStage), 1400, 800);
         currentStage.setTitle("View Schedule");
         currentStage.setScene(scene);
         currentStage.setResizable(false);

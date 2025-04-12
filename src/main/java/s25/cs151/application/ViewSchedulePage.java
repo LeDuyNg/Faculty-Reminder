@@ -7,10 +7,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import javafx.scene.control.TableRow;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
@@ -64,29 +64,35 @@ public class ViewSchedulePage extends BorderPane
 
         TableColumn<OfficeHourSchedule, String> dateCol = new TableColumn<>("Schedule Date");
         dateCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getScheduleDate()));
+        dateCol.setStyle("-fx-alignment: CENTER;");
 
         TableColumn<OfficeHourSchedule, String> timeSlotCol = new TableColumn<>("Time Slot");
         timeSlotCol.setCellValueFactory(cell -> {
             TimeSlot ts = cell.getValue().getTimeSlot();
             return new SimpleStringProperty(ts.formatTimeSlottoString());
         });
+        timeSlotCol.setStyle("-fx-alignment: CENTER;");
 
         TableColumn<OfficeHourSchedule, String> courseCol = new TableColumn<>("Course");
         courseCol.setCellValueFactory(cell -> {
             Course course = cell.getValue().getCourse();
             return new SimpleStringProperty(String.format("%s-%s", course.courseIDtoString(), course.getCourseName()));
         });
+        courseCol.setStyle("-fx-alignment: CENTER;");
 
         TableColumn<OfficeHourSchedule, String> studentCol = new TableColumn<>("Student Name");
         studentCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getStudentName()));
+        studentCol.setStyle("-fx-alignment: CENTER;");
 
         TableColumn<OfficeHourSchedule, String> reasonCol = new TableColumn<>("Reason");
         reasonCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getReason()));
         reasonCol.setPrefWidth(150);
+        reasonCol.setStyle("-fx-alignment: CENTER;");
 
         TableColumn<OfficeHourSchedule, String> commentCol = new TableColumn<>("Comment");
         commentCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getComment()));
         commentCol.setPrefWidth(200);
+        commentCol.setStyle("-fx-alignment: CENTER;");
 
         table.getColumns().addAll(dateCol, timeSlotCol, courseCol, studentCol, reasonCol, commentCol);
         ObservableList<OfficeHourSchedule> schedules = FXCollections.observableArrayList(
