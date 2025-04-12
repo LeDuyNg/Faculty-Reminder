@@ -119,4 +119,8 @@ public class TimeSlot implements Comparable<TimeSlot> {
         int minutes = timeInMinutes % 60;
         return String.format("%02d : %02d", hour, minutes);
     }
+
+    public String formatTimeSlottoString() {
+        return String.format("%s - %s", formatTimetoString(startTimeInMinutes), formatTimetoString(endTimeInMinutes));
+    }
 }
