@@ -1,5 +1,7 @@
 package s25.cs151.application;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class OfficeHourSchedule implements Comparable<OfficeHourSchedule>{
@@ -107,7 +109,10 @@ public class OfficeHourSchedule implements Comparable<OfficeHourSchedule>{
      */
     @Override
     public int compareTo(OfficeHourSchedule o) {
-        int result = scheduleDate.compareTo(o.scheduleDate);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        LocalDate thisDate = LocalDate.parse(this.scheduleDate, formatter);
+        LocalDate otherDate = LocalDate.parse(o.scheduleDate, formatter);
+        int result = thisDate.compareTo(otherDate);
         if (result == 0) {
             return this.timeSlot.compareTo(o.timeSlot);
         }

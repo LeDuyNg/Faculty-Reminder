@@ -1,13 +1,4 @@
-Spring, 1234, true, false, false, false, true
-Spring, 1232, false, false, false, false, true
-Summer, 1234, false, false, false, true, false
-Summer, 2005, false, true, false, true, false
-Summer, 2025, true, true, true, true, true
-Winter, 8888, false, true, false, false, true
-Spring, 2055, false, true, false, false, true
-Spring, 2025, false, true, false, false, false
-Spring, 2123, false, false, false, false, true
-Spring, 1235, false, false, false, true, false
-Fall, 2025, false, true, false, false, true
-Winter, 2025, true, false, false, false, false
-Spring, 3142, false, false, false, false, true
+Spring, 2025, true, false, false, false, true
+Summer, 2025, false, true, false, false, true
+Fall, 2025, false, true, false, true, false
+Winter, 2025, false, false, false, false, true

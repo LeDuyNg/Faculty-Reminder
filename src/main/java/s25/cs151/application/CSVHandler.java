@@ -266,7 +266,7 @@ public class CSVHandler {
                 String courseName = values[5].trim();
                 String sectionNumber = values[6].trim();
                 String reason = values[7].trim();
-                String comment = values[8].trim();
+                String comment = values.length > 8 ? values[8].trim() : "";
 
                 // Create TimeSlot and Course objects
                 TimeSlot timeSlot = new TimeSlot(startTimeInMinute, endTimeInMinute);

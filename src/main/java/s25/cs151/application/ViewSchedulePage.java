@@ -68,11 +68,14 @@ public class ViewSchedulePage extends BorderPane
         TableColumn<OfficeHourSchedule, String> timeSlotCol = new TableColumn<>("Time Slot");
         timeSlotCol.setCellValueFactory(cell -> {
             TimeSlot ts = cell.getValue().getTimeSlot();
-            return new SimpleStringProperty(formatTime(ts.getStartTimeInMinutes()) + " - " + formatTime(ts.getEndTimeInMinutes()));
+            return new SimpleStringProperty(ts.formatTimeSlottoString());
         });
 
         TableColumn<OfficeHourSchedule, String> courseCol = new TableColumn<>("Course");
-        courseCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getCourse().toString()));
+        courseCol.setCellValueFactory(cell -> {
+            Course course = cell.getValue().getCourse();
+            return new SimpleStringProperty(String.format("%s-%s", course.courseIDtoString(), course.getCourseName()));
+        });
 
         TableColumn<OfficeHourSchedule, String> studentCol = new TableColumn<>("Student Name");
         studentCol.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getStudentName()));
