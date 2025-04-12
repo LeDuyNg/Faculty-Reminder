@@ -119,4 +119,21 @@ public class TimeSlot implements Comparable<TimeSlot> {
         int minutes = timeInMinutes % 60;
         return String.format("%02d : %02d", hour, minutes);
     }
+
+    /**
+     * Gets the start time in minutes
+     * @return Start time in minutes
+     */
+    public int getStartTime() {
+        return startTimeInMinutes;
+    }
+
+    /**
+     * Gets start time in minutes
+     * @return Start time in minutes
+     */
+    public int getEndTime() {
+        return endTimeInMinutes;
+    }
+
 }
