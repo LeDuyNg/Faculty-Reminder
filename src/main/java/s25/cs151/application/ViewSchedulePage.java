@@ -5,10 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.time.LocalTime;
@@ -104,7 +101,15 @@ public class ViewSchedulePage extends BorderPane
         CustomizeButton returnButton = new CustomizeButton(200, 40, "Return to Home Page", "#CAA8F5");
         returnButton.setOnAction(e -> Controller.returnHomePage(currentStage));
 
-        VBox layout = new VBox(20, titleBanner, table, returnButton);
+        TextField searchBar = new TextField();
+        searchBar.setPromptText("Enter student's name");
+        searchBar.setPrefSize(600, 30);
+        CustomizeButton searchButton = new CustomizeButton(100, 20, "Search", "#CAA8F5");
+        HBox searchContainer = new HBox(20);
+        searchContainer.getChildren().addAll(searchBar, searchButton);
+        searchContainer.setAlignment(Pos.CENTER);
+
+        VBox layout = new VBox(20, titleBanner, searchContainer, table, returnButton);
         layout.setAlignment(Pos.CENTER);
         layout.setPadding(new Insets(30));
         layout.setStyle("-fx-background-color: #8A2BE2;");
