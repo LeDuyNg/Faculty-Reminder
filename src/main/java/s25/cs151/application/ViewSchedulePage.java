@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * ViewSchedulePage displays table of scheduled office hours, including date, time slot, course, student's name, reason, and comment
@@ -114,6 +115,19 @@ public class ViewSchedulePage extends BorderPane
         layout.setPadding(new Insets(30));
         layout.setStyle("-fx-background-color: #8A2BE2;");
         this.setCenter(layout);
+
+        searchButton.setOnAction(e->{
+            String studentName = searchBar.getText();
+            ObservableList<OfficeHourSchedule> searchSchedules = FXCollections.observableArrayList();
+            for (OfficeHourSchedule schedule : schedules) {
+                if (studentName.equalsIgnoreCase(schedule.getStudentName())) {
+                    searchSchedules.add(schedule);
+                }
+            }
+            FXCollections.sort(searchSchedules);
+            FXCollections.reverse(searchSchedules);
+            table.setItems(searchSchedules);
+        });
     }
 
     /**
