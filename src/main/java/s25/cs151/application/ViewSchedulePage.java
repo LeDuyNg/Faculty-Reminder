@@ -117,10 +117,11 @@ public class ViewSchedulePage extends BorderPane
         this.setCenter(layout);
 
         searchButton.setOnAction(e->{
-            String studentName = searchBar.getText();
+            String studentName = searchBar.getText().toLowerCase();
             ObservableList<OfficeHourSchedule> searchSchedules = FXCollections.observableArrayList();
             for (OfficeHourSchedule schedule : schedules) {
-                if (studentName.equalsIgnoreCase(schedule.getStudentName())) {
+                String currentName = schedule.getStudentName().toLowerCase();
+                if (currentName.contains(studentName)) {
                     searchSchedules.add(schedule);
                 }
             }
