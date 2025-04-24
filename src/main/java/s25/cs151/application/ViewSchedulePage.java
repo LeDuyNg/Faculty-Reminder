@@ -92,10 +92,34 @@ public class ViewSchedulePage extends BorderPane
         commentCol.setPrefWidth(200);
         commentCol.setStyle("-fx-alignment: CENTER;");
 
-        table.getColumns().addAll(dateCol, timeSlotCol, courseCol, studentCol, reasonCol, commentCol);
-        ObservableList<OfficeHourSchedule> schedules = FXCollections.observableArrayList(
-                CSVHandler.loadOfficeHourScheduleObjects()
-        );
+        ObservableList<OfficeHourSchedule> schedules = FXCollections.observableArrayList(CSVHandler.loadOfficeHourScheduleObjects());
+
+        TableColumn<OfficeHourSchedule, Void> deleteCol = new TableColumn<>("Delete");
+        deleteCol.setCellFactory(param -> new TableCell<>() {
+            private final Button deleteButton = new Button("Delete");
+
+            {
+                deleteButton.setStyle("-fx-background-color: #D32F2F; -fx-text-fill: white;");
+                deleteButton.setOnAction(e -> {
+                    OfficeHourSchedule item = getTableView().getItems().get(getIndex());
+                    boolean removed = CSVHandler.removeOfficeHourSchedule(item);
+                    if (removed) {
+                        schedules.remove(item);
+                        table.setItems(FXCollections.observableArrayList(schedules));
+                    } else {
+                        CSVHandler.displayNotification("Failed to remove schedule.");
+                    }
+                });
+            }
+
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : deleteButton);
+            }
+        });
+
+        table.getColumns().addAll(dateCol, timeSlotCol, courseCol, studentCol, reasonCol, commentCol, deleteCol);
+
         FXCollections.sort(schedules);
         table.setItems(schedules);
 

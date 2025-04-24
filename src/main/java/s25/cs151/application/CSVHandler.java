@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * This class is for handling all of the actions related to CSV file and OfficeHour objects
@@ -302,5 +304,28 @@ public class CSVHandler {
         newStage.setScene(newScene);
         newStage.setResizable(false);
         newStage.show();
+    }
+
+    /**
+     * Removes entry from the office_hour_schedule.csv file
+     * @param target object to be removed
+     * @return true if schedule was found and removed, false otherwise
+     */
+    public static boolean removeOfficeHourSchedule(OfficeHourSchedule target) {
+        File file = new File("src/data/office_hour_schedule.csv");
+        List<OfficeHourSchedule> schedules = loadOfficeHourScheduleObjects();
+
+        boolean removed = schedules.remove(target);
+        if (removed) {
+            try (FileWriter writer = new FileWriter(file, false)) {
+                for (OfficeHourSchedule s : schedules) {
+                    writer.write(s.toString() + "\n");
+                }
+            } catch (IOException e) {
+                System.out.println("Failed to rewrite schedule CSV: " + e.getMessage());
+            }
+        }
+
+        return removed;
     }
 }
