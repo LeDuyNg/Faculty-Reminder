@@ -121,6 +121,7 @@ public class ViewSchedulePage extends BorderPane
         table.getColumns().addAll(dateCol, timeSlotCol, courseCol, studentCol, reasonCol, commentCol, deleteCol);
 
         FXCollections.sort(schedules);
+        FXCollections.reverse(schedules);
         table.setItems(schedules);
 
         CustomizeButton returnButton = new CustomizeButton(200, 40, "Return to Home Page", "#CAA8F5");
