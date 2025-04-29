@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javafx.collections.transformation.FilteredList;
 
 /**
  * ViewSchedulePage displays table of scheduled office hours, including date, time slot, course, student's name, reason, and comment
@@ -141,18 +142,18 @@ public class ViewSchedulePage extends BorderPane
         layout.setStyle("-fx-background-color: #8A2BE2;");
         this.setCenter(layout);
 
-        searchButton.setOnAction(e->{
+        FilteredList<OfficeHourSchedule> filteredSchedules = new FilteredList<>(schedules, p -> true);
+
+        searchButton.setOnAction(e -> {
             String studentName = searchBar.getText().toLowerCase();
-            ObservableList<OfficeHourSchedule> searchSchedules = FXCollections.observableArrayList();
-            for (OfficeHourSchedule schedule : schedules) {
-                String currentName = schedule.getStudentName().toLowerCase();
-                if (currentName.contains(studentName)) {
-                    searchSchedules.add(schedule);
-                }
+            if (studentName.isEmpty()) {
+                filteredSchedules.setPredicate(p -> true);
+            } else {
+                filteredSchedules.setPredicate(schedule ->
+                        schedule.getStudentName().toLowerCase().contains(studentName)
+                );
             }
-            FXCollections.sort(searchSchedules);
-            FXCollections.reverse(searchSchedules);
-            table.setItems(searchSchedules);
+            table.setItems(filteredSchedules);
         });
     }
 
