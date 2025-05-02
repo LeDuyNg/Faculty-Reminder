@@ -328,4 +328,47 @@ public class CSVHandler {
 
         return removed;
     }
+
+    /**
+     * Rewrites the entire office hour schedule CSV with the provided list of schedules.
+     * @param schedules the list of OfficeHourSchedule objects to write to file
+     */
+    public static void rewriteAllSchedules(List<OfficeHourSchedule> updatedSchedules) {
+        File file = new File("src/data/office_hour_schedule.csv");
+
+        try (FileWriter writer = new FileWriter(file, false)) {
+            for (OfficeHourSchedule schedule : updatedSchedules) {
+                writer.write(schedule.toString() + "\n");
+            }
+        } catch (IOException e) {
+            System.out.println("Failed to rewrite schedule CSV: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Loads course data from course.csv file
+     * @return list of course objects parsed from the CSV file
+     */
+    public static List<Course> loadCourses() {
+        List<Course> courses = new ArrayList<>();
+        File file = new File("src/data/course.csv");
+
+        try (Scanner scanner = new Scanner(file)) {
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine().trim();
+                if (!line.isEmpty()) {
+                    String[] parts = line.split(",");
+                    if (parts.length >= 3) {
+                        String code = parts[0].trim();
+                        String name = parts[1].trim();
+                        String section = parts[2].trim();
+                        courses.add(new Course(code, name, section));
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Failed to load courses: " + e.getMessage());
+        }
+        return courses;
+    }
 }

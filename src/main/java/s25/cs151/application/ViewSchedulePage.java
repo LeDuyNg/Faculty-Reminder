@@ -158,6 +158,22 @@ public class ViewSchedulePage extends BorderPane
     }
 
     /**
+     * Reloads office hour schedule data from the CSV file and displays it in the TableView
+     * @param table      TableView to populate with schedule data
+     * @param nameFilter case-insensitive substring used to filter schedules by student name
+     */
+    private void reloadAndDisplayData(TableView<OfficeHourSchedule> table, String nameFilter)
+    {
+        ObservableList<OfficeHourSchedule> data = FXCollections.observableArrayList(CSVHandler.loadOfficeHourScheduleObjects());
+        if (!nameFilter.isEmpty()) {
+            data.removeIf(s -> !s.getStudentName().toLowerCase().contains(nameFilter));
+        }
+        FXCollections.sort(data);
+        FXCollections.reverse(data);
+        table.setItems(data);
+    }
+
+    /**
      * Converts minutes to hh:mm format
      *
      * @param totalMinutes time in minutes

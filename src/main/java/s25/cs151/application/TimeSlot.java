@@ -113,7 +113,7 @@ public class TimeSlot implements Comparable<TimeSlot> {
      */
     @Override
     public String toString() {
-        return export().toString().substring(1, export().toString().length() - 1);
+        return formatTimeSlottoString();  // returns something like "08 : 00 - 09 : 00"
     }
 
     /**
@@ -152,6 +152,27 @@ public class TimeSlot implements Comparable<TimeSlot> {
      */
     public int getEndTime() {
         return endTimeInMinutes;
+    }
+
+    /**
+     * Generates a predefined list of common office hour time slots, ach time slot spans 60 minutes and starts from 8:00AM to 4:00PM
+     * @return An ArrayList of valid objects, representing day's schedule
+     */
+    public static ArrayList<TimeSlot> getAllTimeSlots() {
+        ArrayList<TimeSlot> slots = new ArrayList<>();
+        try {
+            slots.add(new TimeSlot(480, 540));
+            slots.add(new TimeSlot(540, 600));
+            slots.add(new TimeSlot(600, 660));
+            slots.add(new TimeSlot(660, 720));
+            slots.add(new TimeSlot(720, 780));
+            slots.add(new TimeSlot(780, 840));
+            slots.add(new TimeSlot(840, 900));
+            slots.add(new TimeSlot(900, 960));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return slots;
     }
 
 }

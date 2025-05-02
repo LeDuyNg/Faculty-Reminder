@@ -169,6 +169,20 @@ public class Controller extends ActionEvent {
     }
 
     /**
+     * Opens Edit Schedule page
+     * @param currentStage current stage to be updated
+     */
+    protected static void openEditSchedulePage(Stage currentStage)
+    {
+        currentStage.close();
+        Scene scene = new Scene(new EditSchedulePage(currentStage), 1400, 800);
+        currentStage.setTitle("Edit Schedule");
+        currentStage.setScene(scene);
+        currentStage.setResizable(false);
+        currentStage.show();
+    }
+
+    /**
      * Closes notification popup.
      *
      * @param notificationStage The stage (window) of the notification to be closed.

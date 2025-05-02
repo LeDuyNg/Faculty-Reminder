@@ -5,12 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class OfficeHourSchedule implements Comparable<OfficeHourSchedule>{
-    private final String studentName;
-    private final String scheduleDate;
-    private final TimeSlot timeSlot;
-    private final Course course;
-    private final String reason;
-    private final String comment;
+    private String studentName;
+    private String scheduleDate;
+    private TimeSlot timeSlot;
+    private Course course;
+    private String reason;
+    private String comment;
 
     /**
      * Constructs a new OfficeHourSchedule with the provided details.
@@ -72,6 +72,37 @@ public class OfficeHourSchedule implements Comparable<OfficeHourSchedule>{
     public String getComment() {
         return comment;
     }
+
+    public void setStudentName(String studentName)
+    {
+        this.studentName = studentName;
+    }
+
+    public void setCourse(Course course)
+    {
+        this.course = course;
+    }
+
+    public void setScheduleDate(String scheduleDate)
+    {
+        this.scheduleDate = scheduleDate;
+    }
+
+    public void setTimeSlot(TimeSlot timeSlot)
+    {
+        this.timeSlot = timeSlot;
+    }
+
+    public void setReason(String reason)
+    {
+        this.reason = reason;
+    }
+
+    public void setComment(String comment)
+    {
+        this.comment = comment;
+    }
+
 
     /**
      * Checks equality between this OfficeHourSchedule and another object.
@@ -143,6 +174,23 @@ public class OfficeHourSchedule implements Comparable<OfficeHourSchedule>{
      */
     @Override
     public String toString() {
-        return export().toString().substring(1, export().toString().length() - 1);
+        return String.join(", ",
+                safe(getStudentName()),
+                safe(getScheduleDate()),
+                String.valueOf(getTimeSlot().getStartTimeInMinutes()),
+                String.valueOf(getTimeSlot().getEndTimeInMinutes()),
+                safe(getCourse().getCourseCode()),
+                safe(getCourse().getCourseName()),
+                safe(getCourse().getSectionNumber()),
+                safe(getReason()),
+                safe(getComment())
+        );
+    }
+
+    /**
+     * Ensures null values are safely converted to empty strings
+     */
+    private String safe(String value) {
+        return value == null ? "" : value;
     }
 }

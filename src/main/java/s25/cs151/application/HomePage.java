@@ -37,6 +37,9 @@ class HomePage extends BorderPane {
         CustomizeButton viewOfficeHours = new CustomizeButton(200, 30,
                 "View Office Hours", "#CAA8F5");
 
+        CustomizeButton editScheduleButton = new CustomizeButton(200, 30,
+                "Edit Office Hour", "#CAA8F5");
+
         CustomizeButton viewCoursesButton = new CustomizeButton(200, 30, "View Courses", "#CAA8F5");
 
         CustomizeButton viewTimeSlots = new CustomizeButton(200, 30,
@@ -67,7 +70,7 @@ class HomePage extends BorderPane {
 
         // Creating a container for the buttons
         VBox centerButtons = new VBox(10, createButton, createScheduleButton, viewScheduleButton, courseButton, timeSlotButton,
-                viewOfficeHours, viewCoursesButton, viewTimeSlots,  exitButton);
+                viewOfficeHours, editScheduleButton, viewCoursesButton, viewTimeSlots,  exitButton);
         centerButtons.setAlignment(Pos.CENTER);
 
         // Adding the banner and the buttons to a center layout
@@ -166,5 +169,6 @@ class HomePage extends BorderPane {
         // Schedule buttons
         createScheduleButton.setOnAction(e -> Controller.openCreateSchedulePage(primaryStage));
         viewScheduleButton.setOnAction(e -> Controller.openViewSchedulePage(primaryStage));
+        editScheduleButton.setOnAction(e -> Controller.openEditSchedulePage(primaryStage));
     }
 }
