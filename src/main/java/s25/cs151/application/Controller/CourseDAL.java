@@ -11,16 +11,19 @@ import java.util.Scanner;
 /**
  * This class handles loading, saving and checking for duplicate courses from csv
  */
-public class CourseHandler
+public class CourseDAL implements ModelControllerInt<Course>
 {
+    public CourseDAL() {};
+
     /**
      * Loads courses from CSV file
      *
      * @return list of Course objects loaded from  file
      */
-    public static List<Course> loadCoursesFromCSV()
+    @Override
+    public  ArrayList<Course> load()
     {
-        List<Course> courseList = new ArrayList<>();
+        ArrayList<Course> courseList = new ArrayList<>();
         File file = new File("src/data/course.csv");
 
         try (Scanner scanner = new Scanner(file))
@@ -49,9 +52,9 @@ public class CourseHandler
      * @param course course to check
      * @return true if course is a duplicate, or else false
      */
-    public static boolean isDuplicate(Course course)
+    public boolean isDuplicate(Course course)
     {
-        List<Course> existing = loadCoursesFromCSV();
+        List<Course> existing = load();
         return existing.contains(course);
     }
 
@@ -61,7 +64,8 @@ public class CourseHandler
      * @param course Course object to save
      * @return true if course was saved successfully, false if it was a duplicate or an error occurred
      */
-    public static boolean saveCourse(Course course)
+    @Override
+    public boolean save(Course course)
     {
         if (isDuplicate(course)) return false;
         try (java.io.FileWriter writer = new java.io.FileWriter("src/data/course.csv", true))

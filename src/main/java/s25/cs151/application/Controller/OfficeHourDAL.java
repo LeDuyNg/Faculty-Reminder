@@ -1,9 +1,6 @@
 package s25.cs151.application.Controller;
 
-import s25.cs151.application.Model.Course;
 import s25.cs151.application.Model.OfficeHour;
-import s25.cs151.application.Model.OfficeHourSchedule;
-import s25.cs151.application.Model.TimeSlot;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -40,17 +37,19 @@ public class OfficeHourDAL implements ModelControllerInt<OfficeHour> {
     }
 
     @Override
-    public void save(OfficeHour newOfficeHour) throws IOException {
+    public boolean save(OfficeHour newOfficeHour) throws IOException {
         try{
             FileWriter out = new FileWriter("src/data/office_hour.csv", true);
             // Append the OfficeHour data to the file
             out.append(newOfficeHour.toString());
             out.append("\n");
             out.close();
+            return true;
         }
         catch (IOException e) {
             // Print an error message if the file cannot be accessed
             System.out.println("File not found");
+            return false;
         }
     }
 }

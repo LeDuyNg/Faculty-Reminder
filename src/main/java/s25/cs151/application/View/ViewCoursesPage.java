@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import s25.cs151.application.Controller.Controller;
 import s25.cs151.application.Model.Course;
-import s25.cs151.application.Controller.CourseHandler;
+import s25.cs151.application.Controller.CourseDAL;
 
 import java.util.Collections;
 import java.util.List;
@@ -84,7 +84,8 @@ public class ViewCoursesPage extends BorderPane
             }
         });
 
-        List<Course> courses = CourseHandler.loadCoursesFromCSV();
+        CourseDAL courseController = new CourseDAL();
+        List<Course> courses = courseController.load();
         Collections.sort(courses);
         courseTable.getItems().addAll(courses);
 

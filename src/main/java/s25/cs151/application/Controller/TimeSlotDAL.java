@@ -47,7 +47,7 @@ public class TimeSlotDAL implements ModelControllerInt<TimeSlot> {
     }
 
     @Override
-    public void save(TimeSlot newTimeSlot) throws IOException {
+    public boolean save(TimeSlot newTimeSlot) throws IOException {
         try{
             FileWriter out = new FileWriter("src/data/time_slot.csv", true);
             // Append the TimeSlot data to the file

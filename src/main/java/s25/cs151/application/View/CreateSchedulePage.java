@@ -68,8 +68,9 @@ public class CreateSchedulePage extends BorderPane
         Label timeSlotLabel = new Label("Time Slot *:");
         timeSlotLabel.setStyle(labelStyle);
 
+        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
         // Get all Time Slots from database
-        List<TimeSlot> timeSlots = CSVHandler.loadTimeSlotObjects();
+        List<TimeSlot> timeSlots = timeSlotController.load();
 
         // Format the Time Slot objects and store them as String in array list
         ArrayList<String> formattedTimeSlots = new ArrayList<>();
@@ -85,8 +86,9 @@ public class CreateSchedulePage extends BorderPane
         Label courseLabel = new Label("Course *:");
         courseLabel.setStyle(labelStyle);
 
+        CourseDAL courseController = new CourseDAL();
         // Get all Course objects from the database and format them for ComboBox
-        List<Course> courses = CourseHandler.loadCoursesFromCSV();
+        List<Course> courses = courseController.load();
 
         ArrayList<String> courseIDs = new ArrayList<>();
         for (Course course : courses) {

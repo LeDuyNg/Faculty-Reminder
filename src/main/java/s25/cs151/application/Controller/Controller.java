@@ -143,25 +143,6 @@ public class Controller extends ActionEvent {
         currentStage.show();
     }
 
-    /**
-     * Saves an OfficeHour object to a CSV file.
-     *
-     * @param newOfficeHour The OfficeHour object to be saved.
-     * @throws IOException If an error occurs while writing to the file.
-     */
-    public static void saveOfficeHour(OfficeHour newOfficeHour) throws IOException {
-        try{
-            FileWriter out = new FileWriter("src/data/office_hour.csv", true);
-            // Append the OfficeHour data to the file
-            out.append(newOfficeHour.toString());
-            out.append("\n");
-            out.close();
-        }
-        catch (IOException e) {
-            // Print an error message if the file cannot be accessed
-            System.out.println("File not found");
-        }
-    }
 
     public static void openViewCoursesPage(Stage currentStage) {
         currentStage.close();
@@ -195,38 +176,5 @@ public class Controller extends ActionEvent {
         notificationStage.close();
     }
 
-    public static void saveTimeSlot(TimeSlot newTimeSlot) throws IOException {
-        try{
-            FileWriter out = new FileWriter("src/data/time_slot.csv", true);
-            // Append the TimeSlot data to the file
-            out.append(newTimeSlot.toString());
-            out.append("\n");
-            out.close();
-        }
-        catch (IOException e) {
-            // Print an error message if the file cannot be accessed
-            System.out.println("File not found");
-        }
-    }
-
-    /**
-     * Saves a new OfficeHourSchedule to the CSV file by appending it to the existing data.
-     *
-     * @param newSchedule the OfficeHourSchedule object to be saved
-     * @throws IOException if an I/O error occurs while writing to the file
-     */
-    public static void saveSchedule(OfficeHourSchedule newSchedule) throws IOException {
-        try {
-            FileWriter out = new FileWriter("src/data/office_hour_schedule.csv", true);
-            out.append(newSchedule.toString());
-            out.append("\n");
-            out.close();
-        } catch (IOException e) {
-            // Print an error message if the file cannot be accessed
-            System.out.println("File not found");
-            // It's better to rethrow the exception if the method declares it
-            throw e;
-        }
-    }
 
 }

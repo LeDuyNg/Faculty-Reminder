@@ -8,7 +8,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import s25.cs151.application.Controller.CSVHandler;
 import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.CourseHandler;
+import s25.cs151.application.Controller.CourseDAL;
+import s25.cs151.application.Controller.ModelControllerInt;
 import s25.cs151.application.Model.Course;
 
 /**
@@ -103,13 +104,14 @@ public class CreateCoursePage extends BorderPane {
             }
 
             Course newCourse = new Course(number, name, section);
-
-            if (CourseHandler.isDuplicate(newCourse)) {
+            CourseDAL courseController = new CourseDAL();
+            if (courseController.isDuplicate(newCourse)) {
                 CSVHandler.displayNotification("Duplicate course detected");
                 return;
             }
 
-            boolean saved = CourseHandler.saveCourse(newCourse);
+
+            boolean saved = courseController.save(newCourse);
             if (saved)
             {
                 courseNumber.clear();

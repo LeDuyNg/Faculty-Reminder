@@ -65,17 +65,17 @@ public class OfficeHourScheduleDAL implements ModelControllerInt<OfficeHourSched
 
 
     @Override
-    public void save(OfficeHourSchedule newSchedule) throws IOException {
+    public boolean save(OfficeHourSchedule newSchedule) throws IOException {
         try {
             FileWriter out = new FileWriter("src/data/office_hour_schedule.csv", true);
             out.append(newSchedule.toString());
             out.append("\n");
             out.close();
+            return true;
         } catch (IOException e) {
             // Print an error message if the file cannot be accessed
             System.out.println("File not found");
-            // It's better to rethrow the exception if the method declares it
-            throw e;
+            return false;
         }
     }
 

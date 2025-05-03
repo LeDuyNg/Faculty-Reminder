@@ -99,10 +99,12 @@ public class EditSchedulePage extends BorderPane {
                 TextField reasonField = new TextField(selected.getReason());
                 TextField commentField = new TextField(selected.getComment());
 
-                ComboBox<TimeSlot> timeSlotBox = new ComboBox<>(FXCollections.observableArrayList(CSVHandler.loadTimeSlotObjects()));
+                ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
+                ComboBox<TimeSlot> timeSlotBox = new ComboBox<>(FXCollections.observableArrayList(timeSlotController.load()));
                 timeSlotBox.setValue(selected.getTimeSlot());
 
-                ComboBox<Course> courseBox = new ComboBox<>(FXCollections.observableArrayList(CourseHandler.loadCoursesFromCSV()));
+                CourseDAL courseController = new CourseDAL();
+                ComboBox<Course> courseBox = new ComboBox<>(FXCollections.observableArrayList(courseController.load()));
                 courseBox.setValue(selected.getCourse());
 
                 Label errorLabel = new Label();

@@ -5,5 +5,5 @@ import java.util.ArrayList;
 
 public interface ModelControllerInt<E> {
     public ArrayList<E> load();
-    public void save(E object) throws IOException;
+    public boolean save(E object) throws IOException;
 }
