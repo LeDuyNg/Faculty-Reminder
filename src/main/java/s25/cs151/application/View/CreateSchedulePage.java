@@ -7,9 +7,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import s25.cs151.application.Controller.CSVHandler;
-import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.CourseHandler;
+import s25.cs151.application.Controller.*;
 import s25.cs151.application.Model.Course;
 import s25.cs151.application.Model.OfficeHourSchedule;
 import s25.cs151.application.Model.TimeSlot;
@@ -155,7 +153,9 @@ public class CreateSchedulePage extends BorderPane
                 // Create the schedule and save it
                 OfficeHourSchedule schedule = new OfficeHourSchedule(name, scheduleDate,
                         timeSlot, course, reason, comment);
-                Controller.saveSchedule(schedule);
+
+                ModelControllerInt<OfficeHourSchedule> scheduleController = new OfficeHourScheduleDAL();
+                scheduleController.save(schedule);
                 showAlert("Success", "Schedule saved successfully!");
                 Controller.returnHomePage(currentStage);
             } catch (Exception ex) {

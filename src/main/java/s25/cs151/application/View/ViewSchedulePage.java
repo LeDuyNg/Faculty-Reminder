@@ -14,6 +14,8 @@ import java.time.format.DateTimeFormatter;
 import javafx.collections.transformation.FilteredList;
 import s25.cs151.application.Controller.CSVHandler;
 import s25.cs151.application.Controller.Controller;
+import s25.cs151.application.Controller.ModelControllerInt;
+import s25.cs151.application.Controller.OfficeHourScheduleDAL;
 import s25.cs151.application.Model.Course;
 import s25.cs151.application.Model.OfficeHourSchedule;
 import s25.cs151.application.Model.TimeSlot;
@@ -98,7 +100,9 @@ public class ViewSchedulePage extends BorderPane
         commentCol.setPrefWidth(200);
         commentCol.setStyle("-fx-alignment: CENTER;");
 
-        ObservableList<OfficeHourSchedule> schedules = FXCollections.observableArrayList(CSVHandler.loadOfficeHourScheduleObjects());
+        OfficeHourScheduleDAL officeHourScheduleController = new OfficeHourScheduleDAL();
+
+        ObservableList<OfficeHourSchedule> schedules = FXCollections.observableArrayList(officeHourScheduleController.load());
 
         TableColumn<OfficeHourSchedule, Void> deleteCol = new TableColumn<>("Delete");
         deleteCol.setCellFactory(param -> new TableCell<>() {
@@ -108,7 +112,7 @@ public class ViewSchedulePage extends BorderPane
                 deleteButton.setStyle("-fx-background-color: #D32F2F; -fx-text-fill: white;");
                 deleteButton.setOnAction(e -> {
                     OfficeHourSchedule item = getTableView().getItems().get(getIndex());
-                    boolean removed = CSVHandler.removeOfficeHourSchedule(item);
+                    boolean removed = officeHourScheduleController.removeOfficeHourSchedule(item);
                     if (removed) {
                         schedules.remove(item);
                         table.setItems(FXCollections.observableArrayList(schedules));

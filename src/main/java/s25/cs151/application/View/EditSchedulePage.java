@@ -10,9 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import s25.cs151.application.Controller.CSVHandler;
-import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.CourseHandler;
+import s25.cs151.application.Controller.*;
 import s25.cs151.application.Model.Course;
 import s25.cs151.application.Model.OfficeHourSchedule;
 import s25.cs151.application.Model.TimeSlot;
@@ -76,7 +74,9 @@ public class EditSchedulePage extends BorderPane {
         commentCol.setPrefWidth(200);
         commentCol.setStyle("-fx-alignment: CENTER;");
 
-        ObservableList<OfficeHourSchedule> schedules = FXCollections.observableArrayList(CSVHandler.loadOfficeHourScheduleObjects());
+        OfficeHourScheduleDAL officeHourScheduleController = new OfficeHourScheduleDAL();
+
+        ObservableList<OfficeHourSchedule> schedules = FXCollections.observableArrayList(officeHourScheduleController.load());
         FilteredList<OfficeHourSchedule> filteredSchedules = new FilteredList<>(schedules, p -> true);
         FXCollections.sort(schedules);
         FXCollections.reverse(schedules);
@@ -118,8 +118,8 @@ public class EditSchedulePage extends BorderPane {
                         selected.setTimeSlot(timeSlotBox.getValue());
                         selected.setCourse(courseBox.getValue());
 
-                        CSVHandler.rewriteAllSchedules(schedules);
-                        table.setItems(FXCollections.observableArrayList(CSVHandler.loadOfficeHourScheduleObjects()));
+                        officeHourScheduleController.rewriteAllSchedules(schedules);
+                        table.setItems(FXCollections.observableArrayList(officeHourScheduleController.load()));
                         table.refresh();
                         popup.close();
 
