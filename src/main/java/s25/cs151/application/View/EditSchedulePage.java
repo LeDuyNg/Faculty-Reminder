@@ -17,6 +17,7 @@ import s25.cs151.application.Model.TimeSlot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 /**
  * EditSchedulePage allows users to search for and modify office hour schedule records
@@ -81,9 +82,10 @@ public class EditSchedulePage extends BorderPane {
 
 
         ObservableList<OfficeHourSchedule> schedules = FXCollections.observableArrayList(officeHourScheduleController.load());
-        FilteredList<OfficeHourSchedule> filteredSchedules = new FilteredList<>(schedules, p -> true);
         FXCollections.sort(schedules);
         FXCollections.reverse(schedules);
+        FilteredList<OfficeHourSchedule> filteredSchedules = new FilteredList<>(schedules, p -> true);
+
 
         table.getColumns().addAll(dateCol, timeSlotCol, courseCol, studentCol, reasonCol, commentCol);
         table.setItems(filteredSchedules);
@@ -123,8 +125,13 @@ public class EditSchedulePage extends BorderPane {
                         selected.setCourse(courseBox.getValue());
 
                         officeHourScheduleController.rewriteAllSchedules(schedules);
-                        table.setItems(FXCollections.observableArrayList(officeHourScheduleController.load()));
-                        table.refresh();
+                        // reload from persistence and overwrite the same list:
+                        ObservableList<OfficeHourSchedule> reloaded = FXCollections.observableArrayList(officeHourScheduleController.load());
+                        FXCollections.sort(reloaded);
+                        FXCollections.reverse(reloaded);
+
+                        schedules.setAll(reloaded);      // pushes changes into `filteredSchedules`
+                        table.refresh();                 // redraw with updated data
                         popup.close();
 
                     } catch (Exception ex) {
