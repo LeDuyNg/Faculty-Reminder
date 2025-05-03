@@ -3,6 +3,7 @@ package s25.cs151.application;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import s25.cs151.application.View.HomePage;
 
 public class Main extends Application {
 
