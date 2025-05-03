@@ -8,13 +8,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-
 import javafx.collections.transformation.FilteredList;
-import s25.cs151.application.Controller.CSVHandler;
 import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.ModelControllerInt;
 import s25.cs151.application.Controller.OfficeHourScheduleDAL;
 import s25.cs151.application.Model.Course;
 import s25.cs151.application.Model.OfficeHourSchedule;
@@ -33,6 +28,8 @@ public class ViewSchedulePage extends BorderPane
      */
     public ViewSchedulePage(Stage currentStage)
     {
+        super();
+        OfficeHourScheduleDAL officeHourScheduleController = new OfficeHourScheduleDAL();
         this.setStyle("-fx-background-color: #8A2BE2;");
         Label title = new Label("View Office Hour Schedule");
         title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: black;");
@@ -100,7 +97,7 @@ public class ViewSchedulePage extends BorderPane
         commentCol.setPrefWidth(200);
         commentCol.setStyle("-fx-alignment: CENTER;");
 
-        OfficeHourScheduleDAL officeHourScheduleController = new OfficeHourScheduleDAL();
+
 
         ObservableList<OfficeHourSchedule> schedules = FXCollections.observableArrayList(officeHourScheduleController.load());
 
@@ -117,7 +114,7 @@ public class ViewSchedulePage extends BorderPane
                         schedules.remove(item);
                         table.setItems(FXCollections.observableArrayList(schedules));
                     } else {
-                        CSVHandler.displayNotification("Failed to remove schedule.");
+                        Controller.displayNotification("Failed to remove schedule.");
                     }
                 });
             }

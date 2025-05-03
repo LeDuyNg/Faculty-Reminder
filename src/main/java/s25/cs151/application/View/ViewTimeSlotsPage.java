@@ -31,6 +31,7 @@ public class ViewTimeSlotsPage extends BorderPane
     public ViewTimeSlotsPage(Stage currentStage)
     {
         super();
+        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
         this.setStyle("-fx-background-color: #8A2BE2;");
 
         // Main content pane
@@ -94,7 +95,7 @@ public class ViewTimeSlotsPage extends BorderPane
             }
         });
 
-        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
+
         List<TimeSlot> formattedTimeSlots = timeSlotController.load();
         Collections.sort(formattedTimeSlots);
         table.getItems().addAll(formattedTimeSlots);

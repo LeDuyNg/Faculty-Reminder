@@ -26,11 +26,11 @@ public class HomePage extends BorderPane {
     public HomePage(Stage primaryStage) {
         super();
         // Center Buttons: Creating the buttons for the user to interact with
-        CustomizeButton createButton = new CustomizeButton(200, 30,
-                "Create Office Hour", "#CAA8F5");
+        CustomizeButton addOfficeHourButton = new CustomizeButton(200, 30,
+                "Add Office Hour", "#CAA8F5");
 
-        CustomizeButton createScheduleButton = new CustomizeButton(200, 30,
-                "Create Schedule", "#CAA8F5");
+        CustomizeButton addScheduleButton = new CustomizeButton(200, 30,
+                "Add Schedule", "#CAA8F5");
 
         CustomizeButton viewScheduleButton = new CustomizeButton(200, 30,
                 "View Schedule", "#CAA8F5");
@@ -39,18 +39,18 @@ public class HomePage extends BorderPane {
                 "View Office Hours", "#CAA8F5");
 
         CustomizeButton editScheduleButton = new CustomizeButton(200, 30,
-                "Edit Office Hour", "#CAA8F5");
+                "Edit Schedule", "#CAA8F5");
 
         CustomizeButton viewCoursesButton = new CustomizeButton(200, 30, "View Courses", "#CAA8F5");
 
-        CustomizeButton viewTimeSlots = new CustomizeButton(200, 30,
+        CustomizeButton viewTimeSlotsButton = new CustomizeButton(200, 30,
                 "View Time Slots", "#CAA8F5");
 
-        CustomizeButton timeSlotButton = new CustomizeButton(200, 30,
-                "Select Time Slot", "#CAA8F5");
+        CustomizeButton addTimeSlotButton = new CustomizeButton(200, 30,
+                "Add Time Slot", "#CAA8F5");
 
-        CustomizeButton courseButton = new CustomizeButton(200, 30,
-                "Select Course", "#CAA8F5");
+        CustomizeButton addCourseButton = new CustomizeButton(200, 30,
+                "Add Course", "#CAA8F5");
 
         CustomizeButton exitButton = new CustomizeButton(200, 30,
                 "Exit", "#CAA8F5");
@@ -70,8 +70,9 @@ public class HomePage extends BorderPane {
         banner.getChildren().addAll(appBannerBox, appName);
 
         // Creating a container for the buttons
-        VBox centerButtons = new VBox(10, createButton, createScheduleButton, viewScheduleButton, courseButton, timeSlotButton,
-                viewOfficeHours, editScheduleButton, viewCoursesButton, viewTimeSlots,  exitButton);
+        VBox centerButtons = new VBox(10, addOfficeHourButton, addScheduleButton, addCourseButton,
+                addTimeSlotButton, viewOfficeHours, viewScheduleButton, editScheduleButton,  viewCoursesButton,
+                viewTimeSlotsButton,  exitButton);
         centerButtons.setAlignment(Pos.CENTER);
 
         // Adding the banner and the buttons to a center layout
@@ -156,19 +157,19 @@ public class HomePage extends BorderPane {
         exitButton.setOnAction(e -> primaryStage.close());
 
         // Button actions for switching pages
-        createButton.setOnAction(e -> Controller.createOfficeHour(primaryStage));
+        addOfficeHourButton.setOnAction(e -> Controller.createOfficeHour(primaryStage));
         viewOfficeHours.setOnAction(e -> Controller.viewOfficeHours(primaryStage));
 
         //Button action for timeslot
-        timeSlotButton.setOnAction(e -> Controller.openTimeSlotPage(primaryStage));
-        viewTimeSlots.setOnAction(e -> Controller.viewTimeSlots(primaryStage));
+        addTimeSlotButton.setOnAction(e -> Controller.openTimeSlotPage(primaryStage));
+        viewTimeSlotsButton.setOnAction(e -> Controller.viewTimeSlots(primaryStage));
 
         // Button action for course
-        courseButton.setOnAction(e -> Controller.openCoursePage(primaryStage));
+        addCourseButton.setOnAction(e -> Controller.openCoursePage(primaryStage));
         viewCoursesButton.setOnAction(e -> Controller.openViewCoursesPage(primaryStage));
 
         // Schedule buttons
-        createScheduleButton.setOnAction(e -> Controller.openCreateSchedulePage(primaryStage));
+        addScheduleButton.setOnAction(e -> Controller.openCreateSchedulePage(primaryStage));
         viewScheduleButton.setOnAction(e -> Controller.openViewSchedulePage(primaryStage));
         editScheduleButton.setOnAction(e -> Controller.openEditSchedulePage(primaryStage));
     }

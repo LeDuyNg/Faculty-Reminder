@@ -27,6 +27,10 @@ public class CreateSchedulePage extends BorderPane
      */
     public CreateSchedulePage(Stage currentStage)
     {
+        ModelControllerInt<OfficeHourSchedule> scheduleController = new OfficeHourScheduleDAL();
+        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
+        ModelControllerInt<Course> courseController = new CourseDAL();
+
         this.setStyle("-fx-background-color: #8A2BE2;");
 
         // Top banner with title "Create Schedule"
@@ -68,7 +72,7 @@ public class CreateSchedulePage extends BorderPane
         Label timeSlotLabel = new Label("Time Slot *:");
         timeSlotLabel.setStyle(labelStyle);
 
-        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
+
         // Get all Time Slots from database
         List<TimeSlot> timeSlots = timeSlotController.load();
 
@@ -86,7 +90,6 @@ public class CreateSchedulePage extends BorderPane
         Label courseLabel = new Label("Course *:");
         courseLabel.setStyle(labelStyle);
 
-        CourseDAL courseController = new CourseDAL();
         // Get all Course objects from the database and format them for ComboBox
         List<Course> courses = courseController.load();
 
@@ -156,7 +159,6 @@ public class CreateSchedulePage extends BorderPane
                 OfficeHourSchedule schedule = new OfficeHourSchedule(name, scheduleDate,
                         timeSlot, course, reason, comment);
 
-                ModelControllerInt<OfficeHourSchedule> scheduleController = new OfficeHourScheduleDAL();
                 scheduleController.save(schedule);
                 showAlert("Success", "Schedule saved successfully!");
                 Controller.returnHomePage(currentStage);

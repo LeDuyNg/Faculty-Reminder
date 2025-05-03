@@ -6,10 +6,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import s25.cs151.application.Controller.CSVHandler;
 import s25.cs151.application.Controller.Controller;
 import s25.cs151.application.Controller.CourseDAL;
-import s25.cs151.application.Controller.ModelControllerInt;
 import s25.cs151.application.Model.Course;
 
 /**
@@ -18,7 +16,7 @@ import s25.cs151.application.Model.Course;
 public class CreateCoursePage extends BorderPane {
     public CreateCoursePage(Stage currentStage) {
         super();
-
+        CourseDAL courseController = new CourseDAL();
         currentStage.setWidth(900);
         currentStage.setHeight(600);
 
@@ -99,14 +97,14 @@ public class CreateCoursePage extends BorderPane {
 
             if (number.isEmpty() || name.isEmpty() || section.isEmpty())
             {
-                CSVHandler.displayNotification("Please fill all fields");
+                Controller.displayNotification("Please fill all fields");
                 return;
             }
 
             Course newCourse = new Course(number, name, section);
-            CourseDAL courseController = new CourseDAL();
+
             if (courseController.isDuplicate(newCourse)) {
-                CSVHandler.displayNotification("Duplicate course detected");
+                Controller.displayNotification("Duplicate course detected");
                 return;
             }
 
@@ -117,9 +115,9 @@ public class CreateCoursePage extends BorderPane {
                 courseNumber.clear();
                 courseName.clear();
                 courseSection.clear();
-                CSVHandler.displayNotification("Course saved successfully");
+                Controller.displayNotification("Course saved successfully");
             } else {
-                CSVHandler.displayNotification("Duplicate course detected");
+                Controller.displayNotification("Duplicate course detected");
             }
         });
     }

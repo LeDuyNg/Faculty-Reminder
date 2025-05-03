@@ -29,6 +29,11 @@ public class EditSchedulePage extends BorderPane {
      * @param currentStage current window stage to return or update views
      */
     public EditSchedulePage(Stage currentStage) {
+        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
+        OfficeHourScheduleDAL officeHourScheduleController = new OfficeHourScheduleDAL();
+        ModelControllerInt<Course> courseController = new CourseDAL();
+
+
         this.setStyle("-fx-background-color: #8A2BE2;");
 
         Label title = new Label("Edit Office Hour Schedule");
@@ -74,7 +79,6 @@ public class EditSchedulePage extends BorderPane {
         commentCol.setPrefWidth(200);
         commentCol.setStyle("-fx-alignment: CENTER;");
 
-        OfficeHourScheduleDAL officeHourScheduleController = new OfficeHourScheduleDAL();
 
         ObservableList<OfficeHourSchedule> schedules = FXCollections.observableArrayList(officeHourScheduleController.load());
         FilteredList<OfficeHourSchedule> filteredSchedules = new FilteredList<>(schedules, p -> true);
@@ -99,11 +103,9 @@ public class EditSchedulePage extends BorderPane {
                 TextField reasonField = new TextField(selected.getReason());
                 TextField commentField = new TextField(selected.getComment());
 
-                ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
                 ComboBox<TimeSlot> timeSlotBox = new ComboBox<>(FXCollections.observableArrayList(timeSlotController.load()));
                 timeSlotBox.setValue(selected.getTimeSlot());
 
-                CourseDAL courseController = new CourseDAL();
                 ComboBox<Course> courseBox = new ComboBox<>(FXCollections.observableArrayList(courseController.load()));
                 courseBox.setValue(selected.getCourse());
 
@@ -145,7 +147,7 @@ public class EditSchedulePage extends BorderPane {
                 popup.setResizable(false);
                 popup.show();
             } else {
-                CSVHandler.displayNotification("No schedule selected");
+                Controller.displayNotification("No schedule selected");
             }
         });
 

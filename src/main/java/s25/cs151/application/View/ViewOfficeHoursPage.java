@@ -11,7 +11,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import s25.cs151.application.Controller.CSVHandler;
 import s25.cs151.application.Controller.Controller;
 import s25.cs151.application.Controller.ModelControllerInt;
 import s25.cs151.application.Controller.OfficeHourDAL;
@@ -33,6 +32,7 @@ public class ViewOfficeHoursPage extends BorderPane
     public ViewOfficeHoursPage(Stage currentStage)
     {
         super();
+        ModelControllerInt<OfficeHour> officeHourController = new OfficeHourDAL();
         this.setStyle("-fx-background-color: #8A2BE2;");
 
         // Main content pane
@@ -106,7 +106,7 @@ public class ViewOfficeHoursPage extends BorderPane
         });
 
         // Load office hours from CSV and sort them
-        ModelControllerInt<OfficeHour> officeHourController = new OfficeHourDAL();
+
         List<OfficeHour> formattedOfficeHours = officeHourController.load();
         Collections.sort(formattedOfficeHours);
         table.getItems().addAll(formattedOfficeHours);

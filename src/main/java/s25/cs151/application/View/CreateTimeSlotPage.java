@@ -6,7 +6,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import s25.cs151.application.Controller.CSVHandler;
 import s25.cs151.application.Controller.Controller;
 import s25.cs151.application.Controller.ModelControllerInt;
 import s25.cs151.application.Controller.TimeSlotDAL;
@@ -19,6 +18,8 @@ public class CreateTimeSlotPage extends BorderPane {
 
     public CreateTimeSlotPage(Stage currentStage) {
         super();
+
+        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
 
         // Set window dimensions
         currentStage.setWidth(900);
@@ -142,21 +143,21 @@ public class CreateTimeSlotPage extends BorderPane {
             Integer endHour = endHourComboBox.getValue();
             Integer endMinute = endMinuteComboBox.getValue();
 
-            ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
+
 
             // Validate that all fields are selected
             if (startHour == null || startMinute == null || endHour == null || endMinute == null) {
-                CSVHandler.displayNotification("Must select Start Time and End Time");
+                Controller.displayNotification("Must select Start Time and End Time");
             } else {
                 try {
                     // Create and save the TimeSlot object
                     TimeSlot newTimeSlot = new TimeSlot(startHour, startMinute, endHour, endMinute);
                     timeSlotController.save(newTimeSlot);
                     Controller.returnHomePage(currentStage);
-                    CSVHandler.displayNotification("Time Slot Saved Successfully");
+                    Controller.displayNotification("Time Slot Saved Successfully");
                 } catch (Exception exception) {
                     // Display error if invalid time
-                    CSVHandler.displayNotification(exception.getMessage());
+                    Controller.displayNotification(exception.getMessage());
                 }
             }
         });

@@ -3,13 +3,10 @@ package s25.cs151.application.Controller;
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import s25.cs151.application.Model.OfficeHour;
-import s25.cs151.application.Model.OfficeHourSchedule;
-import s25.cs151.application.Model.TimeSlot;
+
 import s25.cs151.application.View.*;
 
-import java.io.FileWriter;
-import java.io.IOException;
+
 
 
 /**
@@ -176,5 +173,16 @@ public class Controller extends ActionEvent {
         notificationStage.close();
     }
 
-
+    /**
+     * Displays notification with given message in new pop-up window
+     * @param message The message to be displayed
+     */
+    public static void displayNotification(String message)
+    {
+        Stage newStage = new Stage();
+        Scene newScene = new Scene(new Notifier(message, newStage));
+        newStage.setScene(newScene);
+        newStage.setResizable(false);
+        newStage.show();
+    }
 }

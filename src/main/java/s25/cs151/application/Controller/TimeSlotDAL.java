@@ -54,10 +54,12 @@ public class TimeSlotDAL implements ModelControllerInt<TimeSlot> {
             out.append(newTimeSlot.toString());
             out.append("\n");
             out.close();
+            return true;
         }
         catch (IOException e) {
             // Print an error message if the file cannot be accessed
             System.out.println("File not found");
+            return false;
         }
     }
 }

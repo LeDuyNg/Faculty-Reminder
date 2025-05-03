@@ -9,9 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import s25.cs151.application.Controller.CSVHandler;
 import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.ModelControllerInt;
 import s25.cs151.application.Controller.OfficeHourDAL;
 import s25.cs151.application.Model.OfficeHour;
 
@@ -28,6 +26,8 @@ public class CreateOfficeHourPage extends BorderPane {
      */
     public CreateOfficeHourPage(Stage currentStage) {
         super();
+
+        OfficeHourDAL officeHourController = new OfficeHourDAL();
         // Left side of the page
         // Creating the dark purple background for the left side
         Rectangle leftBackground = new Rectangle(180, 500);
@@ -191,15 +191,15 @@ public class CreateOfficeHourPage extends BorderPane {
                     daysChosen[i] = days[i].isSelected();
                 }
                 // Validate input fields before saving
-                if (!CSVHandler.verifyYear(yearTextField.getText())) {// Check if valid year, 4-digit integer
-                    CSVHandler.displayNotification("Invalid Year");// Display warning
+                if (!officeHourController.verifyYear(yearTextField.getText())) {// Check if valid year, 4-digit integer
+                    Controller.displayNotification("Invalid Year");// Display warning
                 }
-                else if (!CSVHandler.verifyChoseDay(daysChosen)) {// Check if day option left unchecked
-                    CSVHandler.displayNotification("Must Choose At Least 1 Day");// Display warning
+                else if (!officeHourController.verifyChoseDay(daysChosen)) {// Check if day option left unchecked
+                    Controller.displayNotification("Must Choose At Least 1 Day");// Display warning
                 }
-                else if (CSVHandler.checkForDuplicate(semesterComboBox.getValue(), // Check for duplicate value of
+                else if (officeHourController.checkForDuplicate(semesterComboBox.getValue(), // Check for duplicate value of
                         Integer.parseInt(yearTextField.getText()))) {// combo semester, year
-                    CSVHandler.displayNotification("Duplicate Office Hour Found");// Display warning
+                    Controller.displayNotification("Duplicate Office Hour Found");// Display warning
                 }
                 else {
                     // Save office hour if all checks pass
@@ -207,7 +207,7 @@ public class CreateOfficeHourPage extends BorderPane {
                             Integer.parseInt(yearTextField.getText()), daysChosen);
 
 
-                    ModelControllerInt<OfficeHour> officeHourController = new OfficeHourDAL();
+
                     // Save new office hour to .\office_hour.csv file
                     officeHourController.save(newOfficeHour);
 
@@ -215,7 +215,7 @@ public class CreateOfficeHourPage extends BorderPane {
                     Controller.returnHomePage(currentStage);
 
                     // Display a notification indicating office hour saved successfully
-                    CSVHandler.displayNotification("Save Successfully");
+                    Controller.displayNotification("Save Successfully");
                 }
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
