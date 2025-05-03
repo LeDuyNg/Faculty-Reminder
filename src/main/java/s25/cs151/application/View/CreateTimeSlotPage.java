@@ -151,7 +151,7 @@ public class CreateTimeSlotPage extends BorderPane {
                 try {
                     // Create and save the TimeSlot object
                     TimeSlot newTimeSlot = new TimeSlot(startHour, startMinute, endHour, endMinute);
-                    timeSlotController.saveModelObjects(newTimeSlot);
+                    timeSlotController.save(newTimeSlot);
                     Controller.returnHomePage(currentStage);
                     CSVHandler.displayNotification("Time Slot Saved Successfully");
                 } catch (Exception exception) {

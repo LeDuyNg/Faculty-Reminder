@@ -11,6 +11,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import s25.cs151.application.Controller.CSVHandler;
 import s25.cs151.application.Controller.Controller;
+import s25.cs151.application.Controller.ModelControllerInt;
+import s25.cs151.application.Controller.OfficeHourDAL;
 import s25.cs151.application.Model.OfficeHour;
 
 import java.io.IOException;
@@ -204,8 +206,10 @@ public class CreateOfficeHourPage extends BorderPane {
                     OfficeHour newOfficeHour = new OfficeHour(semesterComboBox.getValue(),
                             Integer.parseInt(yearTextField.getText()), daysChosen);
 
+
+                    ModelControllerInt<OfficeHour> officeHourController = new OfficeHourDAL();
                     // Save new office hour to .\office_hour.csv file
-                    Controller.saveOfficeHour(newOfficeHour);
+                    officeHourController.save(newOfficeHour);
 
                     // Return to home page
                     Controller.returnHomePage(currentStage);

@@ -10,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import s25.cs151.application.Controller.CSVHandler;
 import s25.cs151.application.Controller.Controller;
 import s25.cs151.application.Controller.ModelControllerInt;
 import s25.cs151.application.Controller.TimeSlotDAL;
@@ -96,7 +95,7 @@ public class ViewTimeSlotsPage extends BorderPane
         });
 
         ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
-        List<TimeSlot> formattedTimeSlots = timeSlotController.loadModelObjects();
+        List<TimeSlot> formattedTimeSlots = timeSlotController.load();
         Collections.sort(formattedTimeSlots);
         table.getItems().addAll(formattedTimeSlots);
 

@@ -14,7 +14,7 @@ public class TimeSlotDAL implements ModelControllerInt<TimeSlot> {
     public TimeSlotDAL() {};
 
     @Override
-    public ArrayList<TimeSlot> loadModelObjects() {
+    public ArrayList<TimeSlot> load() {
         // Create a list to store TimeSlot objects
         ArrayList<TimeSlot> list = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class TimeSlotDAL implements ModelControllerInt<TimeSlot> {
     }
 
     @Override
-    public void saveModelObjects(TimeSlot newTimeSlot) {
+    public void save(TimeSlot newTimeSlot) throws IOException {
         try{
             FileWriter out = new FileWriter("src/data/time_slot.csv", true);
             // Append the TimeSlot data to the file

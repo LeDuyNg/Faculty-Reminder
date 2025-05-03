@@ -13,6 +13,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import s25.cs151.application.Controller.CSVHandler;
 import s25.cs151.application.Controller.Controller;
+import s25.cs151.application.Controller.ModelControllerInt;
+import s25.cs151.application.Controller.OfficeHourDAL;
 import s25.cs151.application.Model.OfficeHour;
 
 import java.util.Collections;
@@ -103,7 +105,9 @@ public class ViewOfficeHoursPage extends BorderPane
             }
         });
 
-        List<OfficeHour> formattedOfficeHours = CSVHandler.loadOfficeHourObjects();
+        // Load office hours from CSV and sort them
+        ModelControllerInt<OfficeHour> officeHourController = new OfficeHourDAL();
+        List<OfficeHour> formattedOfficeHours = officeHourController.load();
         Collections.sort(formattedOfficeHours);
         table.getItems().addAll(formattedOfficeHours);
 
