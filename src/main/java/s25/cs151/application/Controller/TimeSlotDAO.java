@@ -51,7 +51,7 @@ public class TimeSlotDAO implements DAOInt<TimeSlot> {
         try{
             FileWriter out = new FileWriter("src/data/time_slot.csv", true);
             // Append the TimeSlot data to the file
-            out.append(newTimeSlot.toString());
+            out.append(newTimeSlot.saveFormat());
             out.append("\n");
             out.close();
             return true;

@@ -137,6 +137,9 @@ public class TimeSlot implements Comparable<TimeSlot> {
         return String.format("%s - %s", formatTimetoString(startTimeInMinutes), formatTimetoString(endTimeInMinutes));
     }
 
+    public String saveFormat() {
+        return export().toString().substring(1, export().toString().length() - 1);
+    }
 
     /**
      * Gets the start time in minutes
