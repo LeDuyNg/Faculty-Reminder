@@ -7,8 +7,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.ModelControllerInt;
-import s25.cs151.application.Controller.TimeSlotDAL;
+import s25.cs151.application.Controller.DAOInt;
+import s25.cs151.application.Controller.TimeSlotDAO;
 import s25.cs151.application.Model.TimeSlot;
 
 /**
@@ -19,7 +19,7 @@ public class CreateTimeSlotPage extends BorderPane {
     public CreateTimeSlotPage(Stage currentStage) {
         super();
 
-        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
+        DAOInt timeSlotController = new TimeSlotDAO();
 
         // Set window dimensions
         currentStage.setWidth(900);

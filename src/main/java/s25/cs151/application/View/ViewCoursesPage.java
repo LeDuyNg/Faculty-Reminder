@@ -12,9 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.ModelControllerInt;
+import s25.cs151.application.Controller.DAOInt;
 import s25.cs151.application.Model.Course;
-import s25.cs151.application.Controller.CourseDAL;
+import s25.cs151.application.Controller.CourseDAO;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +32,7 @@ public class ViewCoursesPage extends BorderPane
     public ViewCoursesPage(Stage currentStage)
     {
         super();
-        ModelControllerInt<Course> courseController = new CourseDAL();
+        DAOInt courseController = new CourseDAO();
         this.setStyle("-fx-background-color: #8A2BE2;");
 
         // Main content pane

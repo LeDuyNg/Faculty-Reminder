@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class OfficeHourDAL implements ModelControllerInt<OfficeHour> {
-    public OfficeHourDAL() {};
+public class OfficeHourDAO implements DAOInt<OfficeHour> {
+    public OfficeHourDAO() {};
 
     @Override
     public ArrayList<OfficeHour> load() {

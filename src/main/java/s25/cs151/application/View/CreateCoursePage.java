@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.CourseDAL;
+import s25.cs151.application.Controller.CourseDAO;
 import s25.cs151.application.Model.Course;
 
 /**
@@ -16,7 +16,7 @@ import s25.cs151.application.Model.Course;
 public class CreateCoursePage extends BorderPane {
     public CreateCoursePage(Stage currentStage) {
         super();
-        CourseDAL courseController = new CourseDAL();
+        CourseDAO courseController = new CourseDAO();
         currentStage.setWidth(900);
         currentStage.setHeight(600);
 

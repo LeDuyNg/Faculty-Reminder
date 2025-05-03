@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.OfficeHourDAL;
+import s25.cs151.application.Controller.OfficeHourDAO;
 import s25.cs151.application.Model.OfficeHour;
 
 import java.io.IOException;
@@ -27,7 +27,7 @@ public class CreateOfficeHourPage extends BorderPane {
     public CreateOfficeHourPage(Stage currentStage) {
         super();
 
-        OfficeHourDAL officeHourController = new OfficeHourDAL();
+        OfficeHourDAO officeHourController = new OfficeHourDAO();
         // Left side of the page
         // Creating the dark purple background for the left side
         Rectangle leftBackground = new Rectangle(180, 500);

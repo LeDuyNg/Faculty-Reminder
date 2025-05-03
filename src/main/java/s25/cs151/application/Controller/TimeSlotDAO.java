@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class TimeSlotDAL implements ModelControllerInt<TimeSlot> {
-    public TimeSlotDAL() {};
+public class TimeSlotDAO implements DAOInt<TimeSlot> {
+    public TimeSlotDAO() {};
 
     @Override
     public ArrayList<TimeSlot> load() {

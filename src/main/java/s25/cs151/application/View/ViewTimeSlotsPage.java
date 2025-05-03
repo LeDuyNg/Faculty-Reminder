@@ -11,8 +11,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.ModelControllerInt;
-import s25.cs151.application.Controller.TimeSlotDAL;
+import s25.cs151.application.Controller.DAOInt;
+import s25.cs151.application.Controller.TimeSlotDAO;
 import s25.cs151.application.Model.TimeSlot;
 
 import java.util.Collections;
@@ -31,7 +31,7 @@ public class ViewTimeSlotsPage extends BorderPane
     public ViewTimeSlotsPage(Stage currentStage)
     {
         super();
-        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
+        DAOInt<TimeSlot> timeSlotController = new TimeSlotDAO();
         this.setStyle("-fx-background-color: #8A2BE2;");
 
         // Main content pane

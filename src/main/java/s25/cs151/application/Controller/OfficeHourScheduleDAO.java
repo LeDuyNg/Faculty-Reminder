@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class OfficeHourScheduleDAL implements ModelControllerInt<OfficeHourSchedule> {
-    public OfficeHourScheduleDAL(){};
+public class OfficeHourScheduleDAO implements DAOInt<OfficeHourSchedule> {
+    public OfficeHourScheduleDAO(){};
 
 
     @Override

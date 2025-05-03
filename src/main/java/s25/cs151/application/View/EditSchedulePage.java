@@ -17,7 +17,6 @@ import s25.cs151.application.Model.TimeSlot;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
  * EditSchedulePage allows users to search for and modify office hour schedule records
@@ -30,9 +29,9 @@ public class EditSchedulePage extends BorderPane {
      * @param currentStage current window stage to return or update views
      */
     public EditSchedulePage(Stage currentStage) {
-        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
-        OfficeHourScheduleDAL officeHourScheduleController = new OfficeHourScheduleDAL();
-        ModelControllerInt<Course> courseController = new CourseDAL();
+        DAOInt timeSlotController = new TimeSlotDAO();
+        OfficeHourScheduleDAO officeHourScheduleController = new OfficeHourScheduleDAO();
+        DAOInt courseController = new CourseDAO();
 
 
         this.setStyle("-fx-background-color: #8A2BE2;");

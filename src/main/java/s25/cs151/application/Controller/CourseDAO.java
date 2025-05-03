@@ -11,9 +11,9 @@ import java.util.Scanner;
 /**
  * This class handles loading, saving and checking for duplicate courses from csv
  */
-public class CourseDAL implements ModelControllerInt<Course>
+public class CourseDAO implements DAOInt<Course>
 {
-    public CourseDAL() {};
+    public CourseDAO() {};
 
     /**
      * Loads courses from CSV file

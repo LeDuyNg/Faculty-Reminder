@@ -10,7 +10,7 @@ import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.collections.transformation.FilteredList;
 import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.OfficeHourScheduleDAL;
+import s25.cs151.application.Controller.OfficeHourScheduleDAO;
 import s25.cs151.application.Model.Course;
 import s25.cs151.application.Model.OfficeHourSchedule;
 import s25.cs151.application.Model.TimeSlot;
@@ -29,7 +29,7 @@ public class ViewSchedulePage extends BorderPane
     public ViewSchedulePage(Stage currentStage)
     {
         super();
-        OfficeHourScheduleDAL officeHourScheduleController = new OfficeHourScheduleDAL();
+        OfficeHourScheduleDAO officeHourScheduleController = new OfficeHourScheduleDAO();
         this.setStyle("-fx-background-color: #8A2BE2;");
         Label title = new Label("View Office Hour Schedule");
         title.setStyle("-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: black;");

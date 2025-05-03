@@ -27,9 +27,9 @@ public class CreateSchedulePage extends BorderPane
      */
     public CreateSchedulePage(Stage currentStage)
     {
-        ModelControllerInt<OfficeHourSchedule> scheduleController = new OfficeHourScheduleDAL();
-        ModelControllerInt<TimeSlot> timeSlotController = new TimeSlotDAL();
-        ModelControllerInt<Course> courseController = new CourseDAL();
+        DAOInt scheduleController = new OfficeHourScheduleDAO();
+        DAOInt timeSlotController = new TimeSlotDAO();
+        DAOInt courseController = new CourseDAO();
 
         this.setStyle("-fx-background-color: #8A2BE2;");
 

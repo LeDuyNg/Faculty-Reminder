@@ -12,8 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import s25.cs151.application.Controller.Controller;
-import s25.cs151.application.Controller.ModelControllerInt;
-import s25.cs151.application.Controller.OfficeHourDAL;
+import s25.cs151.application.Controller.DAOInt;
+import s25.cs151.application.Controller.OfficeHourDAO;
 import s25.cs151.application.Model.OfficeHour;
 
 import java.util.Collections;
@@ -32,7 +32,7 @@ public class ViewOfficeHoursPage extends BorderPane
     public ViewOfficeHoursPage(Stage currentStage)
     {
         super();
-        ModelControllerInt<OfficeHour> officeHourController = new OfficeHourDAL();
+        DAOInt officeHourController = new OfficeHourDAO();
         this.setStyle("-fx-background-color: #8A2BE2;");
 
         // Main content pane
